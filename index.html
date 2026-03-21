@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vijay Electronics – Premium Electronics | Trichy • Madurai</title>
+<meta name="description" content="Vijay Electronics – Trichy & Madurai's trusted electronics store. Shop TVs, Speakers, Amplifiers, Home Theatre and more. Best brands, best prices."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p:#0052CC;--pd:#003d99;--pl:#1a6fff;--pxl:#e8f0fe;
+  --a:#FF4500;--al:#ff6a33;--axl:#fff3ef;
+  --g:#059669;--gl:#10b981;--gxl:#ecfdf5;
+  --gold:#f59e0b;--goldl:#fbbf24;
+  --txt:#111827;--txt2:#374151;--txt3:#6b7280;--txt4:#9ca3af;
+  --bg:#f8fafc;--bg2:#f1f5f9;--bg3:#fff;
+  --bdr:#e2e8f0;--bdr2:#cbd5e1;
+  --sh:0 4px 16px rgba(0,0,0,.08);--shlg:0 20px 60px rgba(0,0,0,.12);
+  --rad:12px;--radlg:20px;--radxl:28px;
+  --nh:64px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.6}
+.hidden{display:none!important}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit}
+img{max-width:100%;display:block}
+
+/* TOPBAR */
+.topbar{background:linear-gradient(90deg,#0a2463,#0052CC);color:rgba(255,255,255,.9);font-size:11.5px;font-weight:600;padding:6px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;z-index:200;position:relative}
+.tb-l{display:flex;align-items:center;gap:16px}
+.tb-r{display:flex;align-items:center;gap:12px}
+.tbi{display:flex;align-items:center;gap:5px;opacity:.85}
+.tbi i{font-size:10px;color:#93c5fd}
+.tb-badge{background:linear-gradient(135deg,var(--gold),var(--goldl));color:#7c2d12;border-radius:20px;padding:2px 10px;font-size:10px;font-weight:800}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:300;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);box-shadow:0 2px 16px rgba(0,82,204,.06)}
+.navi{max-width:1320px;margin:auto;display:flex;align-items:center;height:var(--nh);padding:0 24px;gap:8px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer;margin-right:8px}
+.logo-ic{width:36px;height:36px;background:linear-gradient(135deg,var(--p),var(--pl));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 4px 12px rgba(0,82,204,.3)}
+.logo-t{display:flex;flex-direction:column;line-height:1}
+.logo-m{font-family:'Syne',sans-serif;font-size:16px;font-weight:900;background:linear-gradient(135deg,#0a2463,var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-m em{background:linear-gradient(135deg,var(--a),var(--al));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal}
+.logo-s{font-size:8px;font-weight:700;letter-spacing:2px;color:var(--txt3);text-transform:uppercase;margin-top:2px}
+.sw{flex:1;max-width:460px;margin:0 12px;position:relative}
+.si{width:100%;height:40px;border:1.5px solid var(--bdr);border-radius:50px;padding:0 38px 0 40px;font-size:13px;font-family:inherit;outline:none;transition:all .2s;background:#fff}
+.si:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(0,82,204,.1)}
+.si-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:13px;pointer-events:none}
+.si-clr{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:11px;cursor:pointer;display:none}
+.sugs{position:absolute;top:calc(100%+6px);left:0;right:0;background:#fff;border:1.5px solid var(--bdr);border-radius:var(--rad);box-shadow:var(--shlg);max-height:380px;overflow-y:auto;z-index:400;display:none}
+.sugs.open{display:block}
+.sug-gl{font-size:9.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt3);padding:9px 13px 4px}
+.sug-it{display:flex;align-items:center;gap:9px;padding:8px 13px;cursor:pointer;transition:background .15s}
+.sug-it:hover,.sug-it.act{background:var(--pxl)}
+.sug-ico{font-size:14px;width:20px;text-align:center}
+.sug-nm{font-size:13px;font-weight:500;color:var(--txt)}
+.sug-mt{font-size:11px;color:var(--txt3);margin-left:auto;white-space:nowrap}
+.sug-hl{color:var(--p);font-weight:700}
+.sug-empty{padding:16px;text-align:center;color:var(--txt3);font-size:13px}
+.nm{display:flex;align-items:center;gap:2px;list-style:none;margin-left:auto}
+.nml,.nmb{background:none;border:none;color:var(--txt2);font-family:inherit;font-size:12.5px;font-weight:600;padding:7px 11px;border-radius:8px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.nml:hover,.nmb:hover{color:var(--p);background:var(--pxl)}
+.nm-arr{font-size:8px;opacity:.5;transition:transform .2s}
+.open>.nmb .nm-arr{transform:rotate(180deg)}
+.nav-cta{background:linear-gradient(135deg,var(--p),var(--pl));color:#fff!important;border-radius:8px;padding:7px 15px!important;box-shadow:0 3px 10px rgba(0,82,204,.28)}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,82,204,.38)!important;background:linear-gradient(135deg,var(--p),var(--pl))!important;color:#fff!important}
+.drop{position:absolute;top:calc(100%+8px);left:0;background:#fff;border:1.5px solid var(--bdr);border-radius:var(--radlg);box-shadow:var(--shlg);min-width:200px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .2s;z-index:400;overflow:hidden}
+.nm li:hover .drop,.nm li.open .drop{opacity:1;visibility:visible;transform:translateY(0)}
+.di{padding:8px}
+.dh{font-size:9.5px;font-weight:800;letter-spacing:1.5px;color:var(--txt3);text-transform:uppercase;padding:6px 10px 3px}
+.dd{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:var(--txt2);font-size:13px;font-weight:500;transition:all .2s;cursor:pointer}
+.dd:hover{background:var(--pxl);color:var(--p)}
+.mega{min-width:480px;left:50%;transform:translateX(-50%) translateY(-8px)}
+.nm li:hover .mega,.nm li.open .mega{transform:translateX(-50%) translateY(0)}
+.mg{display:grid;grid-template-columns:1fr 1fr;padding:12px}
+.mc{padding:8px}
+.mc+.mc{border-left:1px solid var(--bdr)}
+.mch{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--p);padding:4px 8px 8px}
+.ham{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:8px;border:none;background:none}
+.ham span{display:block;width:22px;height:2px;background:var(--txt2);border-radius:2px;transition:all .3s}
+.ham.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mob-nav{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;opacity:0;visibility:hidden;transition:all .3s}
+.mob-nav.open{opacity:1;visibility:visible}
+.mob-panel{position:absolute;top:0;right:0;width:300px;height:100%;background:#fff;transform:translateX(100%);transition:transform .3s;overflow-y:auto;padding-bottom:40px}
+.mob-nav.open .mob-panel{transform:translateX(0)}
+.mob-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--bdr)}
+.mob-cl{background:none;border:none;font-size:20px;color:var(--txt2);cursor:pointer}
+.mob-it{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--txt2);font-size:13.5px;font-weight:500;border-bottom:1px solid var(--bg2);cursor:pointer;transition:all .2s}
+.mob-it:hover{color:var(--p);background:var(--pxl)}
+.mob-it i{width:18px;text-align:center;color:var(--txt3)}
+.mob-sec{padding:11px 20px 4px;font-size:9.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt4)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#0a2463 0%,#0052CC 50%,#0369a1 100%);position:relative;overflow:hidden;min-height:480px;display:flex;align-items:center}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hc{position:absolute;border-radius:50%;background:rgba(255,255,255,.06)}
+.hc1{width:550px;height:550px;top:-220px;right:-150px}
+.hc2{width:380px;height:380px;bottom:-140px;left:-80px}
+.hpat{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1.5' fill='%23fff'/%3E%3C/svg%3E")}
+.hero-inner{position:relative;z-index:2;max-width:1320px;margin:auto;padding:64px 24px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.hero-c{color:#fff}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:18px;backdrop-filter:blur(8px)}
+.hero-tag i{color:var(--goldl)}
+h1.hero-h{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,50px);font-weight:900;line-height:1.1;margin-bottom:14px}
+h1.hero-h span{color:var(--goldl)}
+.hero-p{font-size:14.5px;opacity:.85;line-height:1.7;margin-bottom:26px;max-width:440px}
+.hero-stats{display:flex;gap:22px;margin-bottom:28px}
+.hst-n{font-family:'Syne',sans-serif;font-size:24px;font-weight:900;color:var(--goldl)}
+.hst-l{font-size:10px;font-weight:600;opacity:.65;text-transform:uppercase;letter-spacing:.5px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn-hp{display:inline-flex;align-items:center;gap:7px;padding:12px 24px;background:linear-gradient(135deg,var(--a),var(--al));color:#fff;border-radius:50px;font-weight:800;font-size:13.5px;border:none;transition:all .25s;box-shadow:0 6px 20px rgba(255,69,0,.4)}
+.btn-hp:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,69,0,.5)}
+.btn-ho{display:inline-flex;align-items:center;gap:7px;padding:12px 24px;background:rgba(255,255,255,.12);color:#fff;border-radius:50px;font-weight:700;font-size:13.5px;border:1.5px solid rgba(255,255,255,.3);transition:all .25s;backdrop-filter:blur(8px)}
+.btn-ho:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+.hslider{}
+.hcard{background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.18);border-radius:var(--radxl);padding:22px;color:#fff;display:none;animation:fin .4s ease}
+.hcard.act{display:block}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.hcard-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;text-transform:uppercase;margin-bottom:10px}
+.hcard-em{font-size:54px;margin-bottom:8px;display:block}
+.hcard-nm{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:3px}
+.hcard-br{font-size:12px;opacity:.65;margin-bottom:14px}
+.hcard-ft{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.hcard-fi{display:flex;align-items:center;gap:6px;font-size:12px;opacity:.85}
+.hcard-fi i{color:var(--goldl);font-size:11px}
+.hcard-cta{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#7c2d12;border-radius:8px;padding:7px 14px;font-size:12.5px;font-weight:800;border:none;cursor:pointer;transition:all .2s}
+.hcard-cta:hover{background:var(--goldl);transform:scale(1.02)}
+.sdots{display:flex;justify-content:center;gap:6px;margin-top:14px}
+.sd{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .2s}
+.sd.act{background:#fff;width:18px;border-radius:3px}
+
+/* TICKER */
+.ticker{background:linear-gradient(90deg,var(--a),var(--al),var(--a));color:#fff;padding:7px 0;overflow:hidden}
+.ttrack{display:flex;animation:tscroll 45s linear infinite;white-space:nowrap}
+.ttrack:hover{animation-play-state:paused}
+.titem{display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-size:12px;font-weight:700}
+.tdot{width:4px;height:4px;background:rgba(255,255,255,.4);border-radius:50%;flex-shrink:0}
+@keyframes tscroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* OFFERS BANNER */
+.offers-section{background:#fff;border-bottom:1px solid var(--bdr);padding:20px 0}
+.offers-inner{max-width:1320px;margin:auto;padding:0 24px}
+.offers-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.offers-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:900;color:var(--txt);display:flex;align-items:center;gap:8px}
+.offers-title i{color:var(--a)}
+.offers-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.offers-scroll::-webkit-scrollbar{display:none}
+.offer-card{min-width:240px;background:linear-gradient(135deg,#0a2463,var(--p));border-radius:var(--radlg);padding:16px;color:#fff;flex-shrink:0;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.offer-card:hover{transform:translateY(-3px);box-shadow:var(--shlg)}
+.offer-card::after{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:rgba(255,255,255,.07);border-radius:50%}
+.offer-badge{background:var(--gold);color:#7c2d12;border-radius:6px;padding:2px 8px;font-size:10px;font-weight:800;display:inline-block;margin-bottom:8px}
+.offer-type{font-size:9.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;opacity:.65;margin-bottom:4px}
+.offer-name{font-size:14px;font-weight:800;margin-bottom:4px;font-family:'Syne',sans-serif}
+.offer-price{display:flex;align-items:baseline;gap:8px;margin-top:8px}
+.offer-new{font-family:'Syne',sans-serif;font-size:18px;font-weight:900;color:var(--goldl)}
+.offer-old{font-size:12px;opacity:.55;text-decoration:line-through}
+.offer-save{background:rgba(16,185,129,.2);color:#6ee7b7;border-radius:20px;padding:2px 8px;font-size:10px;font-weight:700}
+.offer-empty{font-size:13px;color:var(--txt3);padding:16px 0}
+
+/* CAT STRIP */
+.cat-strip{background:#fff;border-bottom:1px solid var(--bdr);padding:0}
+.cat-sc{max-width:1320px;margin:auto;display:flex;overflow-x:auto;padding:0 16px;scrollbar-width:none}
+.cat-sc::-webkit-scrollbar{display:none}
+.cpill{display:flex;flex-direction:column;align-items:center;gap:3px;padding:12px 16px;white-space:nowrap;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;min-width:76px;flex-shrink:0}
+.cpill:hover{border-bottom-color:var(--pl);background:var(--pxl)}
+.cpill.act{border-bottom-color:var(--p);background:var(--pxl)}
+.cpill-ic{font-size:18px}
+.cpill-nm{font-size:10px;font-weight:700;color:var(--txt2);letter-spacing:.2px}
+.cpill.act .cpill-nm{color:var(--p)}
+
+/* BRANDS */
+.brands-s{background:#fff;border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)}
+.brands-sc{max-width:1320px;margin:auto;display:flex;overflow-x:auto;scrollbar-width:none}
+.brands-sc::-webkit-scrollbar{display:none}
+.bri{display:flex;align-items:center;justify-content:center;padding:18px 24px;flex-shrink:0;border-right:1px solid var(--bdr);transition:all .2s;cursor:pointer}
+.bri:hover{background:var(--pxl)}
+.bri-nm{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--txt3);text-transform:uppercase;transition:color .2s}
+.bri:hover .bri-nm{color:var(--p)}
+
+/* SECTION */
+.sec{padding:56px 24px}
+.sec-in{max-width:1320px;margin:auto}
+.sec-hd{text-align:center;margin-bottom:40px}
+.sec-lbl{display:inline-flex;align-items:center;gap:6px;background:var(--pxl);border:1px solid rgba(0,82,204,.15);border-radius:20px;padding:4px 13px;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--p);margin-bottom:10px}
+.sec-ti{font-family:'Syne',sans-serif;font-size:clamp(22px,3vw,34px);font-weight:900;color:var(--txt);margin-bottom:8px;line-height:1.2}
+.sec-ti em{color:var(--p);font-style:normal}
+.sec-sub{font-size:14px;color:var(--txt3);max-width:480px;margin:0 auto}
+
+/* PRODUCTS */
+.prod-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.prod-info{font-size:13.5px;color:var(--txt3)}
+.prod-info b{color:var(--txt);font-weight:700}
+.frow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fsel{height:34px;border:1.5px solid var(--bdr);border-radius:8px;padding:0 10px;font-size:12.5px;font-family:inherit;color:var(--txt2);background:#fff;outline:none;transition:border-color .2s}
+.fsel:focus{border-color:var(--p)}
+.fbtn{height:34px;display:inline-flex;align-items:center;gap:5px;padding:0 12px;border:1.5px solid var(--bdr);border-radius:8px;background:#fff;font-size:12.5px;font-weight:600;color:var(--txt2);cursor:pointer;transition:all .2s}
+.fbtn:hover,.fbtn.act{border-color:var(--p);color:var(--p);background:var(--pxl)}
+.vtog{display:flex;gap:2px;background:var(--bg2);border-radius:8px;padding:3px}
+.vb{width:28px;height:28px;border:none;border-radius:6px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--txt3);transition:all .2s}
+.vb.act{background:#fff;color:var(--p);box-shadow:var(--sh)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+.pgrid.lv{grid-template-columns:1fr}
+.pcard{background:#fff;border-radius:var(--radlg);border:1.5px solid var(--bdr);overflow:hidden;transition:all .25s;cursor:pointer;position:relative}
+.pcard:hover{transform:translateY(-4px);box-shadow:var(--shlg);border-color:var(--p)}
+.pcard-img{width:100%;height:170px;background:linear-gradient(135deg,var(--bg2),var(--pxl));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pcard-em{font-size:60px;transition:transform .3s}
+.pcard:hover .pcard-em{transform:scale(1.08)}
+.pcard-badge{position:absolute;top:9px;left:9px;color:#fff;font-size:9px;font-weight:800;padding:3px 7px;border-radius:5px;text-transform:uppercase}
+.pbadge-hot{background:var(--a)}
+.pbadge-offer{background:var(--g)}
+.pbadge-new{background:var(--p)}
+.pcard-wl{position:absolute;top:9px;right:9px;width:28px;height:28px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--txt3);opacity:0;transition:all .2s;box-shadow:var(--sh)}
+.pcard:hover .pcard-wl{opacity:1}
+.pcard-wl:hover{color:var(--a);transform:scale(1.1)}
+.pcard-body{padding:13px}
+.pcard-cat{font-size:10px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.3px;margin-bottom:3px}
+.pcard-nm{font-size:13px;font-weight:700;color:var(--txt);line-height:1.4;margin-bottom:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pcard-br{font-size:11px;color:var(--txt3);margin-bottom:8px}
+.pcard-price{font-size:14px;font-weight:800;color:var(--p);margin-bottom:8px}
+.pcard-acts{display:flex;gap:7px}
+.pcard-view{flex:1;height:32px;background:linear-gradient(135deg,var(--p),var(--pl));color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:4px;transition:all .2s}
+.pcard-view:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,82,204,.3)}
+.pcard-wa{width:32px;height:32px;border:1.5px solid var(--bdr);border-radius:7px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;color:#25d366;transition:all .2s}
+.pcard-wa:hover{background:#25d366;color:#fff;border-color:#25d366}
+.lv .pcard{display:grid;grid-template-columns:150px 1fr}
+.lv .pcard-img{height:100%;min-height:110px;border-radius:0}
+.lv .pcard-body{display:flex;align-items:center;gap:16px}
+.lv .pcard-info{flex:1}
+.lv .pcard-nm{-webkit-line-clamp:1}
+.load-more-w{text-align:center;margin-top:32px}
+.btn-lm{display:inline-flex;align-items:center;gap:7px;padding:11px 28px;background:#fff;border:1.5px solid var(--bdr);border-radius:50px;font-size:13.5px;font-weight:700;color:var(--txt2);cursor:pointer;transition:all .2s}
+.btn-lm:hover{border-color:var(--p);color:var(--p);transform:translateY(-1px);box-shadow:var(--sh)}
+.loading-spinner{text-align:center;padding:60px 20px;color:var(--txt3)}
+.loading-spinner i{font-size:28px;animation:spin 1s linear infinite;color:var(--p);display:block;margin-bottom:12px}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.empty-prods{text-align:center;padding:60px 20px;grid-column:1/-1}
+.empty-prods .ep-ico{font-size:48px;margin-bottom:14px}
+.empty-prods h3{font-size:16px;font-weight:700;color:var(--txt2);margin-bottom:6px}
+.empty-prods p{font-size:13px;color:var(--txt3)}
+
+/* LOCATIONS */
+.lsec{background:linear-gradient(135deg,#0a2463,#0052CC)}
+.lsec .sec-lbl{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.9)}
+.lsec .sec-ti{color:#fff}
+.lsec .sec-sub{color:rgba(255,255,255,.65)}
+.lgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.lcard{background:rgba(255,255,255,.07);backdrop-filter:blur(16px);border:1.5px solid rgba(255,255,255,.15);border-radius:var(--radxl);overflow:hidden;transition:all .25s;color:#fff}
+.lcard:hover{background:rgba(255,255,255,.12);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.lcard.feat{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 12px 40px rgba(245,158,11,.15)}
+.lfeat-badge{background:linear-gradient(135deg,var(--gold),var(--goldl));color:#7c2d12;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:5px 16px;text-align:center}
+.lmap{height:170px;background:var(--bg2);overflow:hidden}
+.lmap iframe{width:100%;height:100%;border:none;filter:grayscale(15%)}
+.lbody{padding:18px}
+.lname{font-family:'Syne',sans-serif;font-size:16px;font-weight:900;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+.lcb{font-size:9.5px;font-weight:700;background:rgba(255,255,255,.15);padding:2px 7px;border-radius:20px;font-family:'DM Sans',sans-serif}
+.lcard.feat .lcb{background:rgba(245,158,11,.2);color:var(--goldl);border:1px solid rgba(245,158,11,.3)}
+.laddr{font-size:12px;opacity:.78;line-height:1.7;margin:8px 0}
+.laddr i{color:var(--goldl);width:14px}
+.lact{display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
+.lph{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.1);border-radius:7px;padding:7px 11px;font-size:12.5px;font-weight:700;flex:1;justify-content:center;color:#fff;transition:all .2s}
+.lph:hover{background:rgba(255,255,255,.2)}
+.lph i{color:var(--goldl)}
+.lwa{width:36px;height:36px;background:rgba(37,211,102,.2);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#25d366;transition:all .2s;flex-shrink:0}
+.lwa:hover{background:#25d366;color:#fff}
+
+/* WHY */
+.why-sec{background:#fff}
+.wgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.wcard{text-align:center;padding:28px 18px;border-radius:var(--radlg);background:var(--bg);border:1.5px solid var(--bdr);transition:all .25s}
+.wcard:hover{border-color:var(--p);transform:translateY(-4px);box-shadow:var(--shlg);background:#fff}
+.wic{width:56px;height:56px;border-radius:14px;background:var(--pxl);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px;transition:all .2s}
+.wcard:hover .wic{background:linear-gradient(135deg,var(--p),var(--pl));transform:scale(1.05)}
+.wcard:hover .wic i{color:#fff!important}
+.wic i{color:var(--p)}
+.wti{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--txt);margin-bottom:6px}
+.wtx{font-size:12.5px;color:var(--txt3);line-height:1.6}
+
+/* ADMIN CTA */
+.admin-cta{background:linear-gradient(135deg,#0a1628,#0a2463);padding:44px 24px;text-align:center}
+.admin-cta-in{max-width:1320px;margin:auto}
+
+/* FOOTER */
+footer{background:linear-gradient(135deg,#0a1628,#0a2463);color:rgba(255,255,255,.8);padding:56px 24px 0}
+.footer-in{max-width:1320px;margin:auto}
+.fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.07)}
+.fbrand-desc{font-size:13px;line-height:1.7;opacity:.65;margin-bottom:18px}
+.fsoc{display:flex;gap:8px}
+.fsb{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .2s;cursor:pointer;color:rgba(255,255,255,.7)}
+.fsb:hover{background:var(--p);color:#fff;transform:translateY(-2px)}
+.fct{font-family:'Syne',sans-serif;font-size:12.5px;font-weight:900;text-transform:uppercase;letter-spacing:.8px;color:#fff;margin-bottom:14px}
+.flinks{display:flex;flex-direction:column;gap:7px}
+.flink{font-size:12.5px;opacity:.65;cursor:pointer;transition:opacity .2s;display:flex;align-items:center;gap:5px}
+.flink:hover{opacity:1;color:#fff}
+.flink i{font-size:9px;color:var(--pl)}
+.fci{display:flex;align-items:flex-start;gap:9px;margin-bottom:10px;font-size:12.5px;opacity:.75}
+.fci i{color:var(--goldl);margin-top:2px;font-size:11px;flex-shrink:0}
+.fbot{max-width:1320px;margin:0 auto;padding:18px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:11.5px;opacity:.45}
+
+/* ─── AI CHATBOT ─── */
+.chat-fab{position:fixed;bottom:28px;right:28px;width:56px;height:56px;background:linear-gradient(135deg,var(--p),var(--pl));border-radius:50%;border:none;color:#fff;font-size:22px;cursor:pointer;z-index:800;box-shadow:0 6px 24px rgba(0,82,204,.5);transition:all .3s;display:flex;align-items:center;justify-content:center}
+.chat-fab:hover{transform:scale(1.1);box-shadow:0 10px 32px rgba(0,82,204,.6)}
+.chat-fab .cf-badge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:var(--a);border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800}
+.chat-window{position:fixed;bottom:96px;right:28px;width:370px;max-height:560px;background:#fff;border-radius:var(--radxl);box-shadow:0 24px 80px rgba(0,0,0,.2);z-index:800;display:flex;flex-direction:column;overflow:hidden;transform:scale(.92) translateY(16px);opacity:0;visibility:hidden;transition:all .3s;transform-origin:bottom right}
+.chat-window.open{transform:scale(1) translateY(0);opacity:1;visibility:visible}
+.chat-head{background:linear-gradient(135deg,#0a2463,var(--p));padding:16px 18px;display:flex;align-items:center;gap:10px}
+.chat-av{width:36px;height:36px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.chat-hinfo{}
+.chat-htitle{font-weight:700;font-size:13.5px;color:#fff}
+.chat-hsub{font-size:11px;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:4px}
+.chat-hsub::before{content:'';width:6px;height:6px;background:#22c55e;border-radius:50%;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.chat-hclose{margin-left:auto;background:rgba(255,255,255,.12);border:none;color:#fff;width:28px;height:28px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .2s}
+.chat-hclose:hover{background:rgba(255,255,255,.25)}
+.chat-mode-bar{display:flex;gap:4px;padding:10px 14px;background:var(--bg2);border-bottom:1px solid var(--bdr)}
+.chat-mode-btn{flex:1;padding:6px 8px;border:1.5px solid var(--bdr);border-radius:8px;background:#fff;font-size:11.5px;font-weight:700;color:var(--txt3);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:5px}
+.chat-mode-btn.act{background:var(--p);border-color:var(--p);color:#fff}
+.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:200px;max-height:320px}
+.msg{display:flex;gap:8px;animation:msgIn .25s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pl));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#fff}
+.msg-bbl{background:var(--bg2);border-radius:14px 14px 14px 4px;padding:9px 13px;font-size:13px;color:var(--txt);max-width:250px;line-height:1.5}
+.msg.user .msg-bbl{background:var(--p);color:#fff;border-radius:14px 14px 4px 14px}
+.msg-bbl a{color:inherit;text-decoration:underline;font-weight:700}
+.typing-dots{display:flex;gap:4px;padding:10px 14px;background:var(--bg2);border-radius:14px 14px 14px 4px}
+.typing-dots span{width:7px;height:7px;background:var(--txt3);border-radius:50%;animation:bounce .9s infinite}
+.typing-dots span:nth-child(2){animation-delay:.15s}
+.typing-dots span:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+.prod-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.prod-chip{background:#fff;border:1.5px solid var(--bdr);border-radius:8px;padding:5px 10px;font-size:11.5px;font-weight:600;color:var(--txt2);cursor:pointer;transition:all .2s}
+.prod-chip:hover{border-color:var(--p);color:var(--p);background:var(--pxl)}
+.quick-btns{display:flex;flex-wrap:wrap;gap:5px;padding:10px 14px;border-top:1px solid var(--bdr);background:var(--bg2)}
+.qbtn{background:#fff;border:1.5px solid var(--bdr);border-radius:20px;padding:4px 11px;font-size:11.5px;font-weight:600;color:var(--txt2);cursor:pointer;transition:all .2s;white-space:nowrap}
+.qbtn:hover{border-color:var(--p);color:var(--p);background:var(--pxl)}
+.chat-inp-row{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--bdr)}
+.chat-inp{flex:1;border:1.5px solid var(--bdr);border-radius:20px;padding:8px 14px;font-size:13px;font-family:inherit;outline:none;transition:all .2s}
+.chat-inp:focus{border-color:var(--p)}
+.chat-send{width:36px;height:36px;background:linear-gradient(135deg,var(--p),var(--pl));border:none;border-radius:50%;color:#fff;font-size:14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-send:hover{transform:scale(1.08)}
+
+/* TOAST */
+.toast-wrap{position:fixed;bottom:24px;left:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:#fff;border-radius:var(--rad);padding:12px 16px;box-shadow:var(--shlg);border-left:4px solid var(--p);font-size:13px;font-weight:500;color:var(--txt);display:flex;align-items:center;gap:8px;transform:translateX(-110px);opacity:0;transition:all .3s;pointer-events:auto;max-width:280px}
+.toast.show{transform:translateX(0);opacity:1}
+.toast.success{border-left-color:var(--g)}
+.toast.error{border-left-color:var(--a)}
+
+/* SCROLL TOP */
+.scrtop{position:fixed;bottom:28px;left:28px;width:40px;height:40px;border-radius:50%;background:var(--p);color:#fff;border:none;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:500;box-shadow:0 4px 14px rgba(0,82,204,.4);transition:all .3s;opacity:0;transform:translateY(10px);pointer-events:none}
+.scrtop.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.scrtop:hover{transform:translateY(-2px)}
+
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.fade-up.vis{opacity:1;transform:translateY(0)}
+
+@media(max-width:1100px){.lgrid{grid-template-columns:1fr 1fr}.wgrid{grid-template-columns:1fr 1fr}.fgrid{grid-template-columns:1fr 1fr;gap:28px}}
+@media(max-width:860px){.hero-inner{grid-template-columns:1fr;gap:28px;padding:48px 20px}.hslider{display:none}.nm{display:none}.sw{max-width:none;flex:1}.ham{display:flex}}
+@media(max-width:640px){.lgrid{grid-template-columns:1fr}.wgrid{grid-template-columns:1fr 1fr}.fgrid{grid-template-columns:1fr}.hero-stats{gap:14px}.sec{padding:40px 16px}.tbi{display:none}.tbi:first-child{display:flex}.chat-window{width:calc(100vw - 32px);right:16px}.chat-fab{bottom:20px;right:20px}}
+@media(max-width:480px){.wgrid{grid-template-columns:1fr}.pgrid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr))}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-l">
+    <div class="tbi"><i class="fas fa-map-marker-alt"></i> Trichy & Madurai</div>
+    <div class="tbi"><i class="fas fa-clock"></i> Mon–Sat 9AM–8PM</div>
+    <div class="tbi"><i class="fas fa-phone"></i> 7010946746</div>
+  </div>
+  <div class="tb-r">
+    <span class="tb-badge">⚡ Best Price Guarantee</span>
+    <a href="https://wa.me/917010946746" target="_blank" style="display:flex;align-items:center;gap:4px;color:rgba(255,255,255,.9);font-size:11px;font-weight:600"><i class="fab fa-whatsapp" style="color:#25d366"></i> WhatsApp</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="navi">
+    <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <div class="logo-ic">🔌</div>
+      <div class="logo-t">
+        <div class="logo-m">Vijay <em>Electronics</em></div>
+        <div class="logo-s">Trichy · Madurai · Othakadai</div>
+      </div>
+    </div>
+    <div class="sw">
+      <i class="fas fa-search si-icon"></i>
+      <input type="text" id="search-input" class="si" placeholder="Search products, brands…" autocomplete="off"/>
+      <i class="fas fa-times si-clr" id="si-clr" onclick="clearSearch()"></i>
+      <div class="sugs" id="sugs"></div>
+    </div>
+    <ul class="nm">
+      <li><a class="nml" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">Home</a></li>
+      <li><a class="nml" href="#products-sec">Products</a></li>
+      <li class="has-drop">
+        <button class="nmb">Categories <i class="fas fa-chevron-down nm-arr"></i></button>
+        <div class="drop mega" id="mega-cats"></div>
+      </li>
+      <li><a class="nml" href="#locations-sec">Locations</a></li>
+      <li><a class="nml nav-cta" href="https://wa.me/917010946746" target="_blank"><i class="fab fa-whatsapp"></i> Get Quote</a></li>
+      <li><a class="nml" href="admin.html" target="_blank" style="font-size:11.5px;color:var(--txt3)"><i class="fas fa-lock" style="font-size:10px"></i> Admin</a></li>
+    </ul>
+    <button class="ham" id="ham" onclick="toggleMob()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mob-nav" id="mob-nav" onclick="if(event.target===this)toggleMob()">
+  <div class="mob-panel">
+    <div class="mob-hd">
+      <div class="logo-m" style="font-size:15px">Vijay <em>Electronics</em></div>
+      <button class="mob-cl" onclick="toggleMob()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="mob-sec">Navigate</div>
+    <div class="mob-it" onclick="window.scrollTo({top:0,behavior:'smooth'});toggleMob()"><i class="fas fa-home"></i> Home</div>
+    <div class="mob-it" onclick="document.getElementById('products-sec').scrollIntoView({behavior:'smooth'});toggleMob()"><i class="fas fa-th-large"></i> All Products</div>
+    <div class="mob-it" onclick="document.getElementById('locations-sec').scrollIntoView({behavior:'smooth'});toggleMob()"><i class="fas fa-map-marker-alt"></i> Our Locations</div>
+    <div class="mob-sec">Categories</div>
+    <div id="mob-cats"></div>
+    <div class="mob-sec">Contact</div>
+    <a class="mob-it" href="tel:7010946746"><i class="fas fa-phone"></i> Trichy: 70109 46746</a>
+    <a class="mob-it" href="tel:9025890535"><i class="fas fa-phone"></i> Madurai: 90258 90535</a>
+    <a class="mob-it" href="https://wa.me/917010946746" target="_blank"><i class="fab fa-whatsapp" style="color:#25d366"></i> WhatsApp</a>
+    <a class="mob-it" href="admin.html" target="_blank"><i class="fas fa-lock"></i> Admin Panel</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"><div class="hc hc1"></div><div class="hc hc2"></div><div class="hpat"></div></div>
+  <div class="hero-inner">
+    <div class="hero-c">
+      <div class="hero-tag"><i class="fas fa-star"></i> Tamil Nadu's Trusted Electronics Store</div>
+      <h1 class="hero-h">Premium<br><span>Electronics</span><br>At Your Doorstep</h1>
+      <p class="hero-p">Shop 230+ products from top brands at unbeatable prices. Three locations serving Trichy & Madurai.</p>
+      <div class="hero-stats">
+        <div><div class="hst-n" id="stat-products">230+</div><div class="hst-l">Products</div></div>
+        <div><div class="hst-n" id="stat-cats">40+</div><div class="hst-l">Categories</div></div>
+        <div><div class="hst-n">15+</div><div class="hst-l">Brands</div></div>
+        <div><div class="hst-n">3</div><div class="hst-l">Locations</div></div>
+      </div>
+      <div class="hero-btns">
+        <button class="btn-hp" onclick="document.getElementById('products-sec').scrollIntoView({behavior:'smooth'})"><i class="fas fa-th-large"></i> Browse Products</button>
+        <a class="btn-ho" href="https://wa.me/917010946746" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+      </div>
+    </div>
+    <div class="hslider" id="hslider"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ttrack" id="ttrack"></div></div>
+
+<!-- OFFERS -->
+<div class="offers-section" id="offers-sec">
+  <div class="offers-inner">
+    <div class="offers-hd">
+      <div class="offers-title"><i class="fas fa-fire-alt"></i> Hot Offers & Combos</div>
+      <a href="#" style="font-size:12.5px;color:var(--p);font-weight:700" onclick="document.getElementById('products-sec').scrollIntoView({behavior:'smooth'});return false">View All →</a>
+    </div>
+    <div class="offers-scroll" id="offers-list"><div class="offer-empty">Loading offers…</div></div>
+  </div>
+</div>
+
+<!-- CAT STRIP -->
+<div class="cat-strip"><div class="cat-sc" id="cat-sc"></div></div>
+
+<!-- BRANDS -->
+<div class="brands-s"><div class="brands-sc" id="brands-sc"></div></div>
+
+<!-- PRODUCTS -->
+<section class="sec" id="products-sec" style="background:var(--bg)">
+  <div class="sec-in">
+    <div class="sec-hd">
+      <div class="sec-lbl"><i class="fas fa-th-large"></i> Product Catalogue</div>
+      <h2 class="sec-ti">Explore Our <em>Collection</em></h2>
+      <p class="sec-sub" id="products-sub">Loading products from database…</p>
+    </div>
+    <div class="prod-bar">
+      <div class="prod-info"><b id="prod-count">0</b> products <span id="filt-desc"></span></div>
+      <div class="frow">
+        <select class="fsel" id="f-brand" onchange="applyFilters()"><option value="">All Brands</option></select>
+        <select class="fsel" id="f-sort" onchange="applyFilters()">
+          <option value="">Default</option>
+          <option value="az">Name A–Z</option>
+          <option value="za">Name Z–A</option>
+          <option value="pl">Price Low–High</option>
+          <option value="ph">Price High–Low</option>
+        </select>
+        <button class="fbtn" id="clr-btn" onclick="clearFilters()" style="display:none"><i class="fas fa-times"></i> Clear</button>
+        <div class="vtog">
+          <button class="vb act" id="vg" onclick="setView('g')" title="Grid"><i class="fas fa-th-large"></i></button>
+          <button class="vb" id="vl" onclick="setView('l')" title="List"><i class="fas fa-list"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="pgrid" id="pgrid"><div class="loading-spinner" style="grid-column:1/-1"><i class="fas fa-spinner"></i>Loading products…</div></div>
+    <div class="load-more-w" id="lmw" style="display:none">
+      <button class="btn-lm" id="lmbtn" onclick="loadMore()"><i class="fas fa-plus"></i> Load More</button>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN CTA -->
+<div class="admin-cta">
+  <div class="admin-cta-in">
+    <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:4px 13px;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:12px"><i class="fas fa-shield-alt" style="color:var(--goldl)"></i> For Store Admins</div>
+    <h2 style="font-family:'Syne',sans-serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:8px">Manage Your <span style="color:var(--goldl)">Catalogue & Orders</span></h2>
+    <p style="font-size:14px;color:rgba(255,255,255,.6);margin-bottom:24px">Upload Excel, add products, manage orders, create combo offers — all in one place.</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
+      <a href="admin.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:13px 30px;background:linear-gradient(135deg,var(--gold),var(--goldl));color:#7c2d12;border-radius:50px;font-size:14px;font-weight:800;box-shadow:0 6px 20px rgba(245,158,11,.4);transition:all .25s">
+        <i class="fas fa-lock"></i> Open Admin Panel
+      </a>
+    </div>
+    <div style="display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:22px">
+      <div style="color:rgba(255,255,255,.6);font-size:12.5px;display:flex;align-items:center;gap:6px"><i class="fas fa-file-excel" style="color:var(--goldl)"></i> Excel Import</div>
+      <div style="color:rgba(255,255,255,.6);font-size:12.5px;display:flex;align-items:center;gap:6px"><i class="fas fa-boxes" style="color:var(--goldl)"></i> Product Management</div>
+      <div style="color:rgba(255,255,255,.6);font-size:12.5px;display:flex;align-items:center;gap:6px"><i class="fas fa-calendar-check" style="color:var(--goldl)"></i> Order Management</div>
+      <div style="color:rgba(255,255,255,.6);font-size:12.5px;display:flex;align-items:center;gap:6px"><i class="fas fa-percent" style="color:var(--goldl)"></i> Combo Offers</div>
+    </div>
+  </div>
+</div>
+
+<!-- LOCATIONS -->
+<section class="sec lsec" id="locations-sec">
+  <div class="sec-in">
+    <div class="sec-hd">
+      <div class="sec-lbl"><i class="fas fa-map-marker-alt"></i> Find Us</div>
+      <h2 class="sec-ti" style="color:#fff">Visit Our <em style="color:var(--goldl)">Stores</em></h2>
+      <p class="sec-sub">Three convenient locations across Tamil Nadu</p>
+    </div>
+    <div class="lgrid">
+      <div class="lcard feat">
+        <div class="lfeat-badge">⭐ Headquarters · Trichy</div>
+        <div class="lmap"><iframe src="https://www.google.com/maps?q=Veerama+Muniver+Complex+Chathiram+Bus+Stand+Trichy&output=embed" loading="lazy" title="Trichy"></iframe></div>
+        <div class="lbody">
+          <div class="lname">Vijay Electronics <span class="lcb">Trichy</span></div>
+          <div class="laddr"><div><i class="fas fa-building"></i> No. A-17, 1st Floor, VMC</div><div style="padding-left:18px">Chathiram Bus Stand, Trichy – 620002</div><div style="margin-top:4px"><i class="fas fa-landmark"></i> <em>Opp. IG College</em></div></div>
+          <div class="lact"><a class="lph" href="tel:7010946746"><i class="fas fa-phone"></i> 70109 46746</a><a class="lwa" href="https://wa.me/917010946746" target="_blank"><i class="fab fa-whatsapp"></i></a></div>
+        </div>
+      </div>
+      <div class="lcard">
+        <div class="lmap"><iframe src="https://www.google.com/maps?q=Townhall+Road+Madurai+625001&output=embed" loading="lazy" title="Madurai"></iframe></div>
+        <div class="lbody">
+          <div class="lname">Vijay Electronics <span class="lcb">Madurai</span></div>
+          <div class="laddr"><div><i class="fas fa-building"></i> No. 2, Vanian Kinatru Lane</div><div style="padding-left:18px">Townhall Road, Madurai – 625001</div></div>
+          <div class="lact"><a class="lph" href="tel:9025890535"><i class="fas fa-phone"></i> 90258 90535</a><a class="lwa" href="https://wa.me/919025890535" target="_blank"><i class="fab fa-whatsapp"></i></a></div>
+        </div>
+      </div>
+      <div class="lcard">
+        <div class="lmap"><iframe src="https://www.google.com/maps?q=Valar+Nagar+Main+Road+Uthangudi+Othakadai+Madurai&output=embed" loading="lazy" title="Othakadai"></iframe></div>
+        <div class="lbody">
+          <div class="lname">Vijay Electronics <span class="lcb">Othakadai</span></div>
+          <div class="laddr"><div><i class="fas fa-building"></i> No. 1, Valar Nagar Main Road</div><div style="padding-left:18px">Near Meenatchi Store, Uthangudi</div><div style="padding-left:18px">Othakadai, Madurai – 625107</div></div>
+          <div class="lact"><a class="lph" href="tel:7358076300"><i class="fas fa-phone"></i> 73580 76300</a><a class="lwa" href="https://wa.me/917358076300" target="_blank"><i class="fab fa-whatsapp"></i></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="sec why-sec">
+  <div class="sec-in">
+    <div class="sec-hd">
+      <div class="sec-lbl"><i class="fas fa-shield-alt"></i> Why Choose Us</div>
+      <h2 class="sec-ti">The Vijay Electronics <em>Advantage</em></h2>
+    </div>
+    <div class="wgrid">
+      <div class="wcard fade-up"><div class="wic"><i class="fas fa-certificate"></i></div><div class="wti">Genuine Products</div><div class="wtx">100% authentic products from authorized distributors and manufacturers.</div></div>
+      <div class="wcard fade-up"><div class="wic"><i class="fas fa-tags"></i></div><div class="wti">Best Prices</div><div class="wtx">Competitive pricing with best price guarantee. We match any lower price.</div></div>
+      <div class="wcard fade-up"><div class="wic"><i class="fas fa-headset"></i></div><div class="wti">Expert Guidance</div><div class="wtx">Trained staff to help pick the perfect electronics for your needs and budget.</div></div>
+      <div class="wcard fade-up"><div class="wic"><i class="fas fa-map-marker-alt"></i></div><div class="wti">3 Convenient Stores</div><div class="wtx">Trichy, Madurai, and Othakadai — always near you for purchase and support.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-in">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><div class="logo-ic" style="width:32px;height:32px;font-size:15px">🔌</div><div class="logo-m" style="font-size:17px">Vijay <em>Electronics</em></div></div>
+        <p class="fbrand-desc">Your trusted electronics partner in Tamil Nadu. Premium quality, expert advice, unbeatable prices.</p>
+        <div class="fsoc">
+          <a class="fsb" href="https://wa.me/917010946746" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <div class="fsb"><i class="fab fa-facebook-f"></i></div>
+          <div class="fsb"><i class="fab fa-instagram"></i></div>
+          <div class="fsb"><i class="fab fa-youtube"></i></div>
+        </div>
+      </div>
+      <div>
+        <div class="fct">Quick Links</div>
+        <div class="flinks">
+          <div class="flink" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-chevron-right"></i> Home</div>
+          <div class="flink" onclick="document.getElementById('products-sec').scrollIntoView({behavior:'smooth'})"><i class="fas fa-chevron-right"></i> Products</div>
+          <div class="flink" onclick="document.getElementById('locations-sec').scrollIntoView({behavior:'smooth'})"><i class="fas fa-chevron-right"></i> Locations</div>
+          <a class="flink" href="admin.html" target="_blank"><i class="fas fa-chevron-right"></i> Admin Panel</a>
+        </div>
+      </div>
+      <div>
+        <div class="fct">Top Categories</div>
+        <div class="flinks" id="footer-cats"></div>
+      </div>
+      <div>
+        <div class="fct">Contact Us</div>
+        <div class="fci"><i class="fas fa-map-marker-alt"></i><div>VMC, Chathiram Bus Stand<br>Trichy – 620002</div></div>
+        <div class="fci"><i class="fas fa-phone"></i><div><a href="tel:7010946746" style="color:inherit">70109 46746</a><br><a href="tel:9025890535" style="color:inherit">90258 90535</a></div></div>
+        <div class="fci"><i class="fab fa-whatsapp" style="color:#25d366"></i><a href="https://wa.me/917010946746" target="_blank" style="color:inherit">Chat on WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="fbot"><div>© 2025 Vijay Electronics. All rights reserved.</div><div>Built with ❤️ for Tamil Nadu</div></div>
+  </div>
+</footer>
+
+<!-- CHATBOT FAB -->
+<button class="chat-fab" id="chat-fab" onclick="toggleChat()" aria-label="Open AI Assistant">
+  <i class="fas fa-robot" id="chat-fab-icon"></i>
+  <div class="cf-badge">AI</div>
+</button>
+
+<!-- CHAT WINDOW -->
+<div class="chat-window" id="chat-window">
+  <div class="chat-head">
+    <div class="chat-av">🤖</div>
+    <div class="chat-hinfo">
+      <div class="chat-htitle">Vijay AI Assistant</div>
+      <div class="chat-hsub">Online – Product Search & Help</div>
+    </div>
+    <button class="chat-hclose" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="chat-mode-bar">
+    <button class="chat-mode-btn act" id="mode-search" onclick="setMode('search')"><i class="fas fa-search"></i> Product Search</button>
+    <button class="chat-mode-btn" id="mode-chat" onclick="setMode('chat')"><i class="fas fa-info-circle"></i> Store Info</button>
+  </div>
+  <div class="chat-msgs" id="chat-msgs"></div>
+  <div class="quick-btns" id="quick-btns">
+    <button class="qbtn" onclick="sendQuick('Show me TVs')">📺 TVs</button>
+    <button class="qbtn" onclick="sendQuick('Best soundbars')">🔊 SoundBars</button>
+    <button class="qbtn" onclick="sendQuick('5.1 home theatre')">🎬 Home Theatre</button>
+    <button class="qbtn" onclick="sendQuick('Store locations')">📍 Locations</button>
+    <button class="qbtn" onclick="sendQuick('Offers and combos')">🔥 Offers</button>
+  </div>
+  <div class="chat-inp-row">
+    <input class="chat-inp" id="chat-inp" placeholder="Search products or ask anything…" onkeydown="if(event.key==='Enter')sendChat()"/>
+    <button class="chat-send" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toast-wrap"></div>
+<button class="scrtop" id="scrtop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+// ─── SUPABASE CONFIG ───
+const SB_URL = 'https://qnnpstllnovhfmbjkyor.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFubnBzdGxsbm92aGZtYmpreW9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NzM0NDQsImV4cCI6MjA4OTI0OTQ0NH0.JwsgYQigDr1vN57q2uYKkOoQpDOej4JD3MjHWaFxacg';
+const sb = supabase.createClient(SB_URL, SB_KEY);
+
+const CAT_ICONS={'SoundBar':'🔊','Stabilizers':'⚡','Television':'📺','Tower Speaker - Single':'🔉','Tower Speaker - Double':'🔈','5.1 Amplifier':'🎛️','CD300 Amplifiers':'🎛️','Big Amp':'🎛️','Ceiling Fan':'💨','Tower Fan':'💨','2.1 Home Theatre':'🎬','5.1 Home Theatre':'🎬','Trolley Speaker':'🎵','Speaker Box':'📦','BT Speaker':'📻','Torch Flash Light':'🔦','Induction Stove':'🍳','Washing Machine':'🫧','Woofers':'🎶','Transistor Amp':'🎛️','Mosfet Amplifier':'🎛️','Bass Tube':'🎵','Sub Woofer':'🔊','Sub Woofer Head':'🔊','Radio / FM':'📻','Car Amplifiers':'🚗','Car USB':'🚗','Door Speaker':'🚪','Double TIN':'📱','Oval Speaker':'🔉','Reverse Camera':'📷','Tweeter':'🎵','Wire Kit / Speaker Wire':'🔌','2.1 Amplifier':'🎛️','20w Amplifiers':'🎛️','Power Amplifiers':'⚡','Pre Amp':'🎛️','Speaker Head':'🔊','STK Amplifiers':'🎛️','Woofer Head':'🔊'};
+const STORE_PHONES={Trichy:'7010946746',Madurai:'9025890535',Othakadai:'7358076300'};
+const TOP_CATS=['Television','SoundBar','5.1 Home Theatre','Trolley Speaker','Stabilizers','Sub Woofer','Car Amplifiers'];
+
+let ALL_PRODUCTS=[], filteredProds=[], categories=[], brands=[], displayCount=24;
+let activeCategory='all', activeBrand='', activeSort='', searchQuery='';
+let chatMode='search', chatOpen=false;
+let chatOpen=false;
+
+// ─── INIT ───
+document.addEventListener('DOMContentLoaded',async()=>{
+  await loadProducts();
+  await loadOffers();
+  buildHeroSlider();
+  buildTicker();
+  buildCatStrip();
+  buildBrandsStrip();
+  buildMegaMenu();
+  buildMobCats();
+  buildFooterCats();
+  populateBrandFilter();
+  renderProducts();
+  initSearch();
+  initScrollEffects();
+  initDropdowns();
+  initChat();
+});
+
+// ─── SUPABASE: LOAD PRODUCTS ───
+async function loadProducts(){
+  try{
+    const{data,error}=await sb.from('products').select('*').order('category').order('name');
+    if(error||!data||!data.length){
+      // Fallback: try localStorage (seeded from admin or previous session)
+      const local=JSON.parse(localStorage.getItem('ve_products')||'[]');
+      if(local.length){ALL_PRODUCTS=local.map(p=>({...p,icon:CAT_ICONS[p.category]||'📦'}));}
+      else{showToast('Using cached data – connect to Supabase for live products','error');ALL_PRODUCTS=[];}
+    } else {
+      ALL_PRODUCTS=data.map(p=>({...p,icon:CAT_ICONS[p.category]||'📦'}));
+      localStorage.setItem('ve_products',JSON.stringify(ALL_PRODUCTS));
+    }
+  }catch(e){
+    const local=JSON.parse(localStorage.getItem('ve_products')||'[]');
+    ALL_PRODUCTS=local.map(p=>({...p,icon:CAT_ICONS[p.category]||'📦'}));
+  }
+  categories=[...new Set(ALL_PRODUCTS.map(p=>p.category))].sort();
+  brands=[...new Set(ALL_PRODUCTS.map(p=>p.brand))].sort();
+  filteredProds=[...ALL_PRODUCTS];
+  document.getElementById('stat-products').textContent=ALL_PRODUCTS.length+'+';
+  document.getElementById('stat-cats').textContent=categories.length+'+';
+  document.getElementById('products-sub').textContent=`Browse ${ALL_PRODUCTS.length} premium electronics products across ${categories.length} categories`;
+}
+
+// ─── SUPABASE: LOAD OFFERS ───
+async function loadOffers(){
+  try{
+    const{data}=await sb.from('offers').select('*').eq('active',true).order('created_at',{ascending:false});
+    const el=document.getElementById('offers-list');
+    if(!data||!data.length){el.innerHTML='<div class="offer-empty">No active offers at the moment. Check back soon!</div>';return;}
+    el.innerHTML=data.map(o=>{
+      const saved=o.original_price&&o.offer_price?Math.round((1-o.offer_price/o.original_price)*100):o.discount_percent||0;
+      const pNms=o.product_names?o.product_names.join(' + '):'';
+      return`<div class="offer-card" onclick="handleOfferClick(${JSON.stringify(o).replace(/"/g,'&quot;')})">
+        <div class="offer-badge">${o.badge_text||'OFFER'} ${saved?'– Save '+saved+'%':''}</div>
+        <div class="offer-type">${o.offer_type==='combo'?'COMBO PACK':'SINGLE OFFER'}</div>
+        <div class="offer-name">${o.title}</div>
+        ${pNms?`<div style="font-size:11px;opacity:.65;margin-bottom:4px">${pNms}</div>`:''}
+        ${o.description?`<div style="font-size:11.5px;opacity:.7">${o.description}</div>`:''}
+        <div class="offer-price">
+          ${o.offer_price?`<div class="offer-new">₹${Number(o.offer_price).toLocaleString('en-IN')}</div>`:''}
+          ${o.original_price?`<div class="offer-old">₹${Number(o.original_price).toLocaleString('en-IN')}</div>`:''}
+          ${saved?`<div class="offer-save">${saved}% OFF</div>`:''}
+        </div>
+      </div>`;
+    }).join('');
+  }catch(e){document.getElementById('offers-list').innerHTML='<div class="offer-empty">Unable to load offers</div>';}
+}
+
+function handleOfferClick(o){
+  if(o.offer_type==='combo'){showToast(`Combo: ${o.title} – ₹${o.offer_price||''}. WhatsApp us to avail!`,'success');window.open(`https://wa.me/917010946746?text=${encodeURIComponent('Hi! I want to avail the combo offer: '+o.title+(o.offer_price?' at ₹'+o.offer_price:''))}`);}
+  else if(o.product_ids&&o.product_ids[0]){const p=ALL_PRODUCTS.find(x=>x.id==o.product_ids[0]);if(p)openProductPage(p);}
+}
+
+// ─── HERO SLIDER ───
+function buildHeroSlider(){
+  const sl=document.getElementById('hslider');
+  const featured=TOP_CATS.map(cat=>{const ps=ALL_PRODUCTS.filter(p=>p.category===cat);return ps.length?ps[Math.floor(Math.random()*Math.min(3,ps.length))]:null;}).filter(Boolean).slice(0,4);
+  if(!featured.length){sl.style.display='none';return;}
+  sl.innerHTML=featured.map((p,i)=>`<div class="hcard ${i===0?'act':''}" data-i="${i}">
+    <div class="hcard-tag">${p.icon||'📦'} ${p.category}</div>
+    <span class="hcard-em">${p.icon||'📦'}</span>
+    <div class="hcard-nm">${p.name}</div>
+    <div class="hcard-br">by ${p.brand}</div>
+    <div class="hcard-ft"><div class="hcard-fi"><i class="fas fa-check-circle"></i> Genuine Product</div><div class="hcard-fi"><i class="fas fa-check-circle"></i> Best Price Guaranteed</div><div class="hcard-fi"><i class="fas fa-check-circle"></i> Available at All 3 Stores</div></div>
+    <button class="hcard-cta" onclick="openProductPage(${JSON.stringify(p).replace(/"/g,'&quot;')})"><i class="fas fa-eye"></i> View Details</button>
+  </div>`).join('')+`<div class="sdots">${featured.map((_,i)=>`<div class="sd ${i===0?'act':''}" onclick="goSlide(${i})"></div>`).join('')}</div>`;
+  let cur=0;
+  setInterval(()=>{
+    const cs=sl.querySelectorAll('.hcard'),ds=sl.querySelectorAll('.sd');
+    cs[cur].classList.remove('act');ds[cur].classList.remove('act');
+    cur=(cur+1)%cs.length;cs[cur].classList.add('act');ds[cur].classList.add('act');
+  },3800);
+}
+function goSlide(i){const sl=document.getElementById('hslider');sl.querySelectorAll('.hcard').forEach((c,j)=>c.classList.toggle('act',j===i));sl.querySelectorAll('.sd').forEach((d,j)=>d.classList.toggle('act',j===i));}
+
+// ─── TICKER ───
+function buildTicker(){const t=document.getElementById('ttrack');const items=ALL_PRODUCTS.slice(0,30).map(p=>`<span class="titem"><span>${p.icon||'📦'}</span>${p.name}<span class="tdot"></span></span>`).join('');t.innerHTML=items+items;}
+
+// ─── CAT STRIP ───
+function buildCatStrip(){
+  const sc=document.getElementById('cat-sc');
+  sc.innerHTML=`<div class="cpill act" data-cat="all" onclick="filterCat('all')"><span class="cpill-ic">🏪</span><span class="cpill-nm">All</span></div>`+
+  categories.map(c=>`<div class="cpill" data-cat="${c}" onclick="filterCat('${c.replace(/'/g,"\\'")}')"><span class="cpill-ic">${CAT_ICONS[c]||'📦'}</span><span class="cpill-nm">${c}</span></div>`).join('');
+}
+
+// ─── BRANDS ───
+function buildBrandsStrip(){
+  document.getElementById('brands-sc').innerHTML=brands.map(b=>`<div class="bri" onclick="filterBrand('${b.replace(/'/g,"\\'")}')"><div class="bri-nm">${b}</div></div>`).join('');
+}
+
+// ─── MEGA MENU ───
+function buildMegaMenu(){
+  const cats=categories;const half=Math.ceil(cats.length/2);
+  document.getElementById('mega-cats').innerHTML=`<div class="mg"><div class="mc"><div class="mch"><i class="fas fa-bolt"></i> Categories</div>${cats.slice(0,half).map(c=>`<div class="dd" onclick="filterCat('${c.replace(/'/g,"\\'")}');document.getElementById('products-sec').scrollIntoView({behavior:'smooth'})">${CAT_ICONS[c]||'📦'} ${c}</div>`).join('')}</div><div class="mc"><div class="mch"><i class="fas fa-th"></i> More</div>${cats.slice(half).map(c=>`<div class="dd" onclick="filterCat('${c.replace(/'/g,"\\'")}');document.getElementById('products-sec').scrollIntoView({behavior:'smooth'})">${CAT_ICONS[c]||'📦'} ${c}</div>`).join('')}</div></div>`;
+}
+
+// ─── MOBILE CATS ───
+function buildMobCats(){document.getElementById('mob-cats').innerHTML=categories.slice(0,14).map(c=>`<div class="mob-it" onclick="filterCat('${c.replace(/'/g,"\\'")}');document.getElementById('products-sec').scrollIntoView({behavior:'smooth'});toggleMob()"><i style="width:18px;text-align:center">${CAT_ICONS[c]||'📦'}</i>${c}</div>`).join('')+'<div class="mob-it" onclick="document.getElementById(\'products-sec\').scrollIntoView({behavior:\'smooth\'});toggleMob()"><i class="fas fa-ellipsis-h" style="width:18px;text-align:center"></i>All Categories</div>';}
+
+// ─── FOOTER CATS ───
+function buildFooterCats(){document.getElementById('footer-cats').innerHTML=TOP_CATS.map(c=>`<div class="flink" onclick="filterCat('${c}');document.getElementById('products-sec').scrollIntoView({behavior:'smooth'})"><i class="fas fa-chevron-right"></i>${c}</div>`).join('');}
+
+// ─── BRAND FILTER ───
+function populateBrandFilter(){const s=document.getElementById('f-brand');brands.forEach(b=>{const o=document.createElement('option');o.value=b;o.textContent=b;s.appendChild(o);});}
+
+// ─── FILTER FUNCTIONS ───
+function filterCat(cat){activeCategory=cat;displayCount=24;document.querySelectorAll('.cpill').forEach(p=>p.classList.toggle('act',p.dataset.cat===cat));applyFilters();document.getElementById('products-sec').scrollIntoView({behavior:'smooth',block:'start'});}
+function filterBrand(brand){activeBrand=brand;document.getElementById('f-brand').value=brand;displayCount=24;applyFilters();document.getElementById('products-sec').scrollIntoView({behavior:'smooth'});}
+function applyFilters(){
+  activeBrand=document.getElementById('f-brand').value;activeSort=document.getElementById('f-sort').value;
+  filteredProds=ALL_PRODUCTS.filter(p=>
+    (activeCategory==='all'||p.category===activeCategory)&&
+    (!activeBrand||p.brand===activeBrand)&&
+    (!searchQuery||p.name.toLowerCase().includes(searchQuery.toLowerCase())||p.brand.toLowerCase().includes(searchQuery.toLowerCase())||p.category.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+  if(activeSort==='az')filteredProds.sort((a,b)=>a.name.localeCompare(b.name));
+  if(activeSort==='za')filteredProds.sort((a,b)=>b.name.localeCompare(a.name));
+  if(activeSort==='pl')filteredProds.sort((a,b)=>(a.price||0)-(b.price||0));
+  if(activeSort==='ph')filteredProds.sort((a,b)=>(b.price||0)-(a.price||0));
+  const show=activeCategory!=='all'||activeBrand||searchQuery;
+  document.getElementById('clr-btn').style.display=show?'flex':'none';
+  let desc='';
+  if(activeCategory!=='all')desc+=` in <b>${activeCategory}</b>`;
+  if(activeBrand)desc+=` · Brand: <b>${activeBrand}</b>`;
+  if(searchQuery)desc+=` · "<b>${searchQuery}</b>"`;
+  document.getElementById('filt-desc').innerHTML=desc;
+  renderProducts();
+}
+function clearFilters(){activeCategory='all';activeBrand='';activeSort='';searchQuery='';displayCount=24;document.getElementById('f-brand').value='';document.getElementById('f-sort').value='';document.getElementById('search-input').value='';document.getElementById('si-clr').style.display='none';document.getElementById('sugs').classList.remove('open');document.querySelectorAll('.cpill').forEach(p=>p.classList.toggle('act',p.dataset.cat==='all'));document.getElementById('filt-desc').innerHTML='';document.getElementById('clr-btn').style.display='none';filteredProds=[...ALL_PRODUCTS];renderProducts();}
+
+// ─── RENDER PRODUCTS ───
+function renderProducts(){
+  const grid=document.getElementById('pgrid');
+  const shown=filteredProds.slice(0,displayCount);
+  document.getElementById('prod-count').textContent=filteredProds.length;
+  if(!filteredProds.length){grid.innerHTML=`<div class="empty-prods"><div class="ep-ico">🔍</div><h3>No products found</h3><p>Try a different search or clear filters</p><button onclick="clearFilters()" style="margin-top:16px;padding:9px 22px;background:var(--p);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">Clear Filters</button></div>`;document.getElementById('lmw').style.display='none';return;}
+  grid.innerHTML=shown.map(p=>{
+    const url=`product.html?id=${p.id}&name=${encodeURIComponent(p.name)}&brand=${encodeURIComponent(p.brand)}&category=${encodeURIComponent(p.category)}`;
+    const waMsg=encodeURIComponent(`Hi! Interested in: ${p.name} (${p.brand}). Please share price & availability.`);
+    return`<div class="pcard" onclick="openProductPage(${JSON.stringify(p).replace(/"/g,'&quot;')})">
+      <div class="pcard-img">
+        ${p.image_url
+          ? `<img src="${p.image_url}" alt="${p.name}" style="width:100%;height:100%;object-fit:contain;padding:12px" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"loading="lazy"/>
+             <span class="pcard-em" style="display:none">${p.icon||'📦'}</span>`
+          : `<span class="pcard-em">${p.icon||'📦'}</span>`}
+        <button class="pcard-wl" onclick="event.stopPropagation();showToast('Saved!','success')"><i class="far fa-heart"></i></button>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-cat">${p.category}</div>
+        <div class="pcard-nm">${p.name}</div>
+        <div class="pcard-br">${p.brand}</div>
+        ${p.price?`<div class="pcard-price">₹${Number(p.price).toLocaleString('en-IN')}</div>`:''}
+        <div class="pcard-acts">
+          <button class="pcard-view" onclick="event.stopPropagation();openProductPage(${JSON.stringify(p).replace(/"/g,'&quot;')})"><i class="fas fa-eye"></i> View & Book</button>
+          <a class="pcard-wa" href="https://wa.me/917010946746?text=${waMsg}" target="_blank" onclick="event.stopPropagation()" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  const lmw=document.getElementById('lmw'),lmb=document.getElementById('lmbtn');
+  if(displayCount>=filteredProds.length){lmw.style.display='none';}else{lmw.style.display='block';lmb.innerHTML=`<i class="fas fa-plus"></i> Load More (${filteredProds.length-displayCount} remaining)`;}
+}
+function loadMore(){displayCount+=24;renderProducts();document.getElementById('lmbtn').scrollIntoView({behavior:'smooth',block:'center'});}
+function setView(m){document.getElementById('pgrid').classList.toggle('lv',m==='l');document.getElementById('vg').classList.toggle('act',m==='g');document.getElementById('vl').classList.toggle('act',m==='l');}
+
+// ─── OPEN PRODUCT PAGE ───
+function openProductPage(p){window.open(`product.html?id=${p.id}&name=${encodeURIComponent(p.name)}&brand=${encodeURIComponent(p.brand)}&category=${encodeURIComponent(p.category)}`,'_blank');}
+
+// ─── SEARCH ───
+function initSearch(){
+  const inp=document.getElementById('search-input'),sugs=document.getElementById('sugs'),clr=document.getElementById('si-clr');
+  inp.addEventListener('input',debounce(e=>{
+    const q=e.target.value.trim();searchQuery=q;clr.style.display=q?'block':'none';
+    if(!q){sugs.classList.remove('open');applyFilters();return;}
+    showSugs(q);applyFilters();
+  },220));
+  inp.addEventListener('keydown',e=>{if(e.key==='Escape')clearSearch();if(e.key==='Enter')sugs.classList.remove('open');});
+  document.addEventListener('click',e=>{if(!e.target.closest('.sw'))sugs.classList.remove('open');});
+}
+function showSugs(q){
+  const el=document.getElementById('sugs'),ql=q.toLowerCase();
+  const pm=ALL_PRODUCTS.filter(p=>p.name.toLowerCase().includes(ql)||p.brand.toLowerCase().includes(ql)||p.category.toLowerCase().includes(ql)).slice(0,7);
+  const cm=categories.filter(c=>c.toLowerCase().includes(ql)).slice(0,3);
+  const bm=brands.filter(b=>b.toLowerCase().includes(ql)).slice(0,3);
+  if(!pm.length&&!cm.length){el.innerHTML=`<div class="sug-empty"><i class="fas fa-search"></i> No results for "${q}"</div>`;el.classList.add('open');return;}
+  let html='';
+  if(cm.length){html+=`<div class="sug-gl">Categories</div>${cm.map(c=>`<div class="sug-it" onclick="filterCat('${c.replace(/'/g,"\\'")}');document.getElementById('products-sec').scrollIntoView({behavior:'smooth'});document.getElementById('sugs').classList.remove('open')"><span class="sug-ico">${CAT_ICONS[c]||'📦'}</span><span class="sug-nm">${hl(c,q)}</span><span class="sug-mt">${ALL_PRODUCTS.filter(p=>p.category===c).length} items</span></div>`).join('')}`;}
+  if(bm.length){html+=`<div class="sug-gl">Brands</div>${bm.map(b=>`<div class="sug-it" onclick="filterBrand('${b.replace(/'/g,"\\'")}');document.getElementById('sugs').classList.remove('open')"><span class="sug-ico">🏷️</span><span class="sug-nm">${hl(b,q)}</span><span class="sug-mt">${ALL_PRODUCTS.filter(p=>p.brand===b).length}</span></div>`).join('')}`;}
+  if(pm.length){html+=`<div class="sug-gl">Products</div>${pm.map(p=>`<div class="sug-it" onclick="openProductPage(${JSON.stringify(p).replace(/"/g,'&quot;')});document.getElementById('sugs').classList.remove('open')"><span class="sug-ico">${p.icon||'📦'}</span><span class="sug-nm">${hl(p.name,q)}</span><span class="sug-mt">${p.brand}</span></div>`).join('')}`;}
+  el.innerHTML=html;el.classList.add('open');
+}
+function hl(t,q){return t.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}),'gi'),'<span class="sug-hl">$1</span>');}
+function clearSearch(){searchQuery='';document.getElementById('search-input').value='';document.getElementById('si-clr').style.display='none';document.getElementById('sugs').classList.remove('open');applyFilters();}
+
+// ─── NAV DROPDOWNS ───
+function initDropdowns(){
+  document.querySelectorAll('.has-drop').forEach(li=>{li.querySelector('.nmb')?.addEventListener('click',e=>{e.stopPropagation();li.classList.toggle('open');});});
+  document.addEventListener('click',()=>document.querySelectorAll('.has-drop.open').forEach(li=>li.classList.remove('open')));
+}
+function toggleMob(){const n=document.getElementById('mob-nav'),h=document.getElementById('ham');n.classList.toggle('open');h.classList.toggle('open');document.body.style.overflow=n.classList.contains('open')?'hidden':'';}
+
+// ─── SCROLL ───
+function initScrollEffects(){
+  const st=document.getElementById('scrtop');
+  window.addEventListener('scroll',()=>st.classList.toggle('show',window.scrollY>400));
+  new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('vis')),{threshold:.15}).observe(...document.querySelectorAll('.fade-up'));
+}
+
+// ─── AI CHATBOT ───
+// ─── SMART CHATBOT (No API key needed — works 100%) ───
+function initChat(){
+  addBotMsg('வணக்கம்! 👋 Vijay Electronics Bot here!\n\n**Enna help pannanam?**\n\n• Product search — "television", "soundbar", "JBL"\n• Price info — "JBL price"\n• Location — "Trichy address"\n• Timing — "shop timings"\n• Offer — "current offers"');
+}
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-window').classList.toggle('open',chatOpen);
+  document.getElementById('chat-fab-icon').className=chatOpen?'fas fa-times':'fas fa-robot';
+  if(chatOpen) document.getElementById('chat-inp').focus();
+}
+
+function setMode(m){
+  chatMode=m;
+  document.getElementById('mode-search').classList.toggle('act',m==='search');
+  document.getElementById('mode-chat').classList.toggle('act',m==='chat');
+  document.getElementById('chat-inp').placeholder=m==='search'?'Type product name, brand or category…':'Ask about store, timing, location…';
+}
+
+function sendQuick(msg){document.getElementById('chat-inp').value=msg;sendChat();}
+
+async function sendChat(){
+  const inp=document.getElementById('chat-inp'),msg=inp.value.trim();
+  if(!msg)return;
+  inp.value='';
+  addUserMsg(msg);
+  showTyping();
+  await new Promise(r=>setTimeout(r,500)); // natural delay
+  removeTyping();
+  await handleBotReply(msg.toLowerCase());
+}
+
+// ─── SMART REPLY ENGINE ───
+async function handleBotReply(q){
+  // 1. LOCATION questions
+  if(/location|address|shop|store|branch|வணக்கம்|எங்கே|trichy|madurai|othakadai|where|direction/i.test(q)){
+    if(/trichy/i.test(q)){
+      addBotMsg('📍 **Trichy Store (HQ)**\nNo. A-17, 1st Floor, VMC\nChathiram Bus Stand, Trichy – 620002\nOpp. IG College\n📞 **70109 46746**');
+    } else if(/madurai/i.test(q)&&!/othak/i.test(q)){
+      addBotMsg('📍 **Madurai Store**\nNo. 2, Vanian Kinatru Lane\nTownhall Road, Madurai – 625001\n📞 **90258 90535**');
+    } else if(/othak/i.test(q)){
+      addBotMsg('📍 **Othakadai Store**\nNo. 1, Valar Nagar Main Road\nNear Meenatchi Store, Uthangudi\nMadurai – 625107\n📞 **73580 76300**');
+    } else {
+      addBotMsg('📍 We have **3 stores**:\n\n**Trichy** – VMC, Chathiram Bus Stand\n📞 70109 46746\n\n**Madurai** – Townhall Road\n📞 90258 90535\n\n**Othakadai** – Valar Nagar Main Road\n📞 73580 76300');
+    }
+    return;
+  }
+
+  // 2. TIMING questions
+  if(/time|timing|open|close|hour|working|day|sunday|saturday|week|நேரம்/i.test(q)){
+    addBotMsg('🕐 **Shop Timings**\nMonday – Saturday: **9AM to 8PM**\nSunday: Closed 🔒\n\nWhatsApp பண்ணுங்க anytime: **70109 46746**');
+    return;
+  }
+
+  // 3. WHATSAPP / CONTACT
+  if(/whatsapp|contact|call|phone|number|phone|டெலிபோன்/i.test(q)){
+    addBotMsg('📞 **Contact Us**\n\nWhatsApp: **70109 46746** (Trichy HQ)\nMadurai: **90258 90535**\nOthakadai: **73580 76300**\n\n<a href="https://wa.me/917010946746" target="_blank" style="color:var(--g);font-weight:700">👉 Click to WhatsApp now</a>');
+    return;
+  }
+
+  // 4. OFFER / COMBO
+  if(/offer|combo|discount|deal|price|சலுகை|கொம்போ/i.test(q)){
+    addBotMsg('🔥 **Current Offers**\nCheck our **Offers section** on the homepage for latest combos and deals!\n\nFor best price quote:\n<a href="https://wa.me/917010946746?text=Hi! Please share current offers and combo packs." target="_blank" style="color:var(--g);font-weight:700">👉 WhatsApp for Offers</a>');
+    return;
+  }
+
+  // 5. GREETING
+  if(/^(hi|hello|hai|hey|vanakkam|வணக்கம்|helo|good morning|good evening|gm|ge)[\s!.]*$/i.test(q.trim())){
+    addBotMsg('வணக்கம்! 😊 Welcome to Vijay Electronics!\n\nEnna help venuma? Product search pannalama, or store info venuma?');
+    return;
+  }
+
+  // 6. PRICE question (without specific product)
+  if(/^(price|cost|rate|விலை|pricelist|catalogue)[\s?]*$/i.test(q.trim())){
+    addBotMsg('💰 Product name or category sollunga — price info tharuven!\n\nExample: "television price" or "soundbar price"\n\nOr WhatsApp pannunga for full pricelist:\n<a href="https://wa.me/917010946746?text=Hi! Please share price list." target="_blank" style="color:var(--g);font-weight:700">👉 WhatsApp Us</a>');
+    return;
+  }
+
+  // 7. PRODUCT SEARCH — search local + Supabase
+  let results = searchProducts(q);
+
+  // If no local results, try Supabase
+  if(!results.length){
+    try{
+      const{data}=await sb.from('products').select('*')
+        .or(`name.ilike.%${q}%,brand.ilike.%${q}%,category.ilike.%${q}%`)
+        .limit(6);
+      results=(data||[]).map(p=>({...p,icon:CAT_ICONS[p.category]||'📦'}));
+    }catch(e){}
+  }
+
+  if(results.length){
+    addBotMsg(`✅ **${results.length} product(s)** found for "${q}":\n\nClick any product to see details & book:`);
+    addProductChips(results);
+    return;
+  }
+
+  // 8. CATEGORY suggestion if partial match
+  const catMatch = categories.filter(c=>c.toLowerCase().includes(q)||q.includes(c.toLowerCase()));
+  if(catMatch.length){
+    addBotMsg(`📦 Searching in **${catMatch[0]}** category...`);
+    const catProds=ALL_PRODUCTS.filter(p=>p.category===catMatch[0]).slice(0,6);
+    if(catProds.length){addProductChips(catProds);}
+    return;
+  }
+
+  // 9. FALLBACK
+  const suggestions=['television','soundbar','5.1 home theatre','amplifier','speaker','stabilizer'];
+  const rnd=suggestions[Math.floor(Math.random()*suggestions.length)];
+  addBotMsg(`🔍 "${q}" ku exact match கிடைக்கலை.\n\nTry: **${rnd}**, or category name sollunga.\n\nOr WhatsApp pannunga — quick reply tharuven:\n<a href="https://wa.me/917010946746?text=Hi! I need help finding: ${encodeURIComponent(q)}" target="_blank" style="color:var(--g);font-weight:700">👉 WhatsApp Us</a>`);
+}
+
+// Search local products array
+function searchProducts(q){
+  if(!q||q.length<2) return [];
+  const ql=q.toLowerCase();
+  return ALL_PRODUCTS.filter(p=>
+    p.name?.toLowerCase().includes(ql)||
+    p.brand?.toLowerCase().includes(ql)||
+    p.category?.toLowerCase().includes(ql)||
+    p.description?.toLowerCase().includes(ql)
+  ).slice(0,6);
+}
+
+function addBotMsg(text){
+  const msgs=document.getElementById('chat-msgs');
+  const div=document.createElement('div');
+  div.className='msg bot';
+  div.innerHTML=`<div class="msg-av">🤖</div><div class="msg-bbl">${mdToHtml(text)}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function addUserMsg(text){
+  const msgs=document.getElementById('chat-msgs');
+  const div=document.createElement('div');
+  div.className='msg user';
+  div.innerHTML=`<div class="msg-bbl">${text}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function showTyping(){
+  const msgs=document.getElementById('chat-msgs');
+  const d=document.createElement('div');
+  d.className='msg bot';d.id='typing';
+  d.innerHTML='<div class="msg-av">🤖</div><div class="typing-dots"><span></span><span></span><span></span></div>';
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+}
+function removeTyping(){document.getElementById('typing')?.remove();}
+function addProductChips(prods){
+  const msgs=document.getElementById('chat-msgs');
+  const div=document.createElement('div');
+  div.className='msg bot';
+  const chips=prods.map(p=>`<div class="prod-chip" onclick="openProductPage(${JSON.stringify(p).replace(/"/g,'&quot;')})">${p.icon||'📦'} <strong>${p.name}</strong><br><small>${p.brand} · ${p.category}${p.price?' · ₹'+Number(p.price).toLocaleString('en-IN'):''}</small></div>`).join('');
+  div.innerHTML=`<div class="msg-av">🤖</div><div class="msg-bbl"><div class="prod-chips">${chips}</div></div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function mdToHtml(t){
+  return t
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\n\n/g,'<br><br>')
+    .replace(/\n/g,'<br>')
+    .replace(/• /g,'• ');
+}
+
+// ─── UTILITIES ───
+function debounce(fn,d){let t;return function(...a){clearTimeout(t);t=setTimeout(()=>fn.apply(this,a),d);};}
+function showToast(msg,type='info'){const w=document.getElementById('toast-wrap');const t=document.createElement('div');t.className=`toast ${type}`;const col=type==='success'?'var(--g)':type==='error'?'var(--a)':'var(--p)';const ic=type==='success'?'check-circle':type==='error'?'exclamation-circle':'info-circle';t.innerHTML=`<i class="fas fa-${ic}" style="color:${col}"></i> ${msg}`;w.appendChild(t);requestAnimationFrame(()=>{requestAnimationFrame(()=>t.classList.add('show'));});setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),400);},3500);}
+</script>
+</body>
+</html>

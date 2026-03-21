@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Product Details – Vijay Electronics</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p:#0052CC;--p-d:#003d99;--p-l:#1a6fff;--p-xl:#e8f0fe;
+  --a:#FF4500;--a-xl:#fff3ef;
+  --g:#059669;--g-l:#10b981;--g-xl:#ecfdf5;
+  --gold:#f59e0b;--gold-l:#fbbf24;
+  --txt:#111827;--txt2:#374151;--txt3:#6b7280;--txt4:#9ca3af;
+  --bg:#f8fafc;--bg2:#f1f5f9;--bg3:#fff;
+  --bdr:#e2e8f0;--bdr2:#cbd5e1;
+  --sh:0 4px 16px rgba(0,0,0,.08);--sh-lg:0 20px 60px rgba(0,0,0,.12);
+  --rad:12px;--rad-lg:20px;--rad-xl:28px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+
+/* NAV */
+.site-nav{background:#fff;border-bottom:1px solid var(--bdr);padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,82,204,.05)}
+.nav-logo{font-family:'Syne',sans-serif;font-size:16px;font-weight:900;color:var(--p);display:flex;align-items:center;gap:8px}
+.nav-logo em{color:var(--a);font-style:normal}
+.nav-back{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--txt2);cursor:pointer;transition:color .2s;background:var(--bg2);border:1.5px solid var(--bdr);border-radius:8px;padding:7px 14px}
+.nav-back:hover{color:var(--p);border-color:var(--p);background:var(--p-xl)}
+
+/* BREADCRUMB */
+.breadcrumb{max-width:1200px;margin:16px auto;padding:0 24px;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--txt3)}
+.bc-sep{opacity:.4}
+.bc-link{color:var(--p);cursor:pointer;font-weight:600}
+.bc-link:hover{text-decoration:underline}
+.bc-cur{color:var(--txt2);font-weight:600}
+
+/* MAIN LAYOUT */
+.page-wrap{max-width:1200px;margin:0 auto;padding:0 24px 60px}
+.product-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:48px}
+
+/* IMAGE PANEL */
+.img-panel{position:sticky;top:80px}
+.main-img{background:linear-gradient(135deg,var(--bg2),var(--p-xl));border-radius:var(--rad-xl);height:380px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:16px;border:1.5px solid var(--bdr)}
+.main-emoji{font-size:130px;transition:transform .3s;filter:drop-shadow(0 8px 24px rgba(0,0,0,.15))}
+.main-img:hover .main-emoji{transform:scale(1.05) rotate(-3deg)}
+.img-badge{position:absolute;top:16px;left:16px;background:linear-gradient(135deg,var(--p),var(--p-l));color:#fff;border-radius:10px;padding:5px 12px;font-size:11px;font-weight:800;letter-spacing:.3px}
+.img-share{position:absolute;top:16px;right:16px;display:flex;gap:8px}
+.share-btn{width:36px;height:36px;background:rgba(255,255,255,.9);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--txt2);cursor:pointer;transition:all .2s;backdrop-filter:blur(8px);border:1px solid var(--bdr)}
+.share-btn:hover{background:#fff;transform:scale(1.05)}
+.thumb-row{display:flex;gap:10px}
+.thumb{width:72px;height:72px;background:var(--bg2);border-radius:var(--rad);border:2px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;transition:all .2s}
+.thumb:hover,.thumb.active{border-color:var(--p);background:var(--p-xl)}
+
+/* PRODUCT INFO */
+.prod-info{}
+.prod-breadtag{display:flex;align-items:center;gap:6px;margin-bottom:12px}
+.prod-cat-tag{display:inline-flex;align-items:center;gap:5px;background:var(--p-xl);color:var(--p);border-radius:6px;padding:4px 10px;font-size:11.5px;font-weight:700}
+.prod-brand-tag{display:inline-flex;align-items:center;gap:5px;background:var(--bg2);color:var(--txt3);border-radius:6px;padding:4px 10px;font-size:11.5px;font-weight:700}
+.prod-name{font-family:'Syne',sans-serif;font-size:clamp(22px,3vw,30px);font-weight:900;line-height:1.25;color:var(--txt);margin-bottom:8px}
+.prod-id{font-size:11px;color:var(--txt4);font-weight:600;letter-spacing:.5px;margin-bottom:16px}
+.prod-avail{display:inline-flex;align-items:center;gap:6px;background:var(--g-xl);color:var(--g);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;margin-bottom:20px}
+.prod-avail::before{content:'';width:7px;height:7px;background:var(--g);border-radius:50%;animation:blink 1.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.prod-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:20px}
+.prod-price{font-family:'Syne',sans-serif;font-size:26px;font-weight:900;color:var(--txt)}
+.prod-price-note{font-size:12px;color:var(--txt3)}
+
+/* HIGHLIGHTS */
+.prod-highlights{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
+.ph-item{display:flex;align-items:center;gap:8px;background:var(--bg2);border-radius:10px;padding:9px 12px;font-size:12.5px;color:var(--txt2);font-weight:500}
+.ph-item i{color:var(--g);font-size:12px}
+
+/* ACTIONS */
+.prod-actions{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap}
+.btn-book{flex:1;min-width:140px;padding:14px 20px;background:linear-gradient(135deg,var(--g),var(--g-l));color:#fff;border:none;border-radius:var(--rad);font-size:14px;font-weight:800;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .25s;box-shadow:0 6px 18px rgba(5,150,105,.35)}
+.btn-book:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(5,150,105,.45)}
+.btn-wa{flex:1;min-width:140px;padding:14px 20px;background:linear-gradient(135deg,#128C7E,#25d366);color:#fff;border:none;border-radius:var(--rad);font-size:14px;font-weight:800;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .25s;box-shadow:0 6px 18px rgba(37,211,102,.3);text-decoration:none}
+.btn-wa:hover{transform:translateY(-2px)}
+.btn-call{padding:14px 20px;background:var(--p-xl);color:var(--p);border:1.5px solid rgba(0,82,204,.2);border-radius:var(--rad);font-size:14px;font-weight:800;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .25s;text-decoration:none}
+.btn-call:hover{background:var(--p);color:#fff}
+
+/* SPECS */
+.specs-section{margin-bottom:24px}
+.specs-title{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--txt3);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.specs-title::before{content:'';width:3px;height:14px;background:var(--p);border-radius:2px}
+.specs-table{width:100%;border-collapse:collapse;border-radius:var(--rad);overflow:hidden;border:1.5px solid var(--bdr)}
+.specs-table tr:nth-child(even){background:var(--bg)}
+.specs-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--bdr)}
+.specs-table tr:last-child td{border-bottom:none}
+.specs-table td:first-child{font-weight:700;color:var(--txt2);width:38%;background:var(--bg2)}
+.specs-table td:last-child{color:var(--txt3)}
+
+/* STORE PICKER */
+.store-picker{margin-bottom:24px}
+.store-picker-title{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--txt3);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.store-picker-title::before{content:'';width:3px;height:14px;background:var(--gold);border-radius:2px}
+.stores-list{display:flex;flex-direction:column;gap:8px}
+.store-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--bdr);border-radius:var(--rad);cursor:pointer;transition:all .2s}
+.store-opt:hover{border-color:var(--p);background:var(--p-xl)}
+.store-opt.selected{border-color:var(--p);background:var(--p-xl)}
+.store-opt input[type=radio]{display:none}
+.store-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--bdr2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.store-opt.selected .store-check{background:var(--p);border-color:var(--p)}
+.store-opt.selected .store-check::after{content:'';width:7px;height:7px;background:#fff;border-radius:50%;display:block}
+.store-info{}
+.store-name{font-size:13px;font-weight:700;color:var(--txt)}
+.store-addr{font-size:11.5px;color:var(--txt3)}
+
+/* BOOKING FORM */
+.booking-section{background:#fff;border-radius:var(--rad-xl);border:1.5px solid var(--bdr);overflow:hidden;box-shadow:var(--sh)}
+.booking-head{background:linear-gradient(135deg,#0a2463,var(--p));padding:20px 24px;color:#fff}
+.bh-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:900;margin-bottom:4px}
+.bh-sub{font-size:12px;opacity:.8}
+.booking-body{padding:24px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:12px;font-weight:700;color:var(--txt2)}
+.form-label .req{color:var(--a)}
+.form-input,.form-select,.form-textarea{width:100%;border:1.5px solid var(--bdr2);border-radius:var(--rad);padding:10px 13px;font-size:13.5px;font-family:inherit;color:var(--txt);outline:none;transition:all .2s;background:#fff}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(0,82,204,.08)}
+.form-textarea{resize:vertical;min-height:80px}
+.form-hint{font-size:11px;color:var(--txt4);margin-top:3px}
+.prod-summary-box{background:var(--bg2);border-radius:var(--rad);padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;gap:12px;border:1px solid var(--bdr)}
+.psb-emoji{font-size:28px}
+.psb-info{}
+.psb-name{font-size:13px;font-weight:700;color:var(--txt)}
+.psb-meta{font-size:11.5px;color:var(--txt3)}
+.btn-submit{width:100%;padding:15px;background:linear-gradient(135deg,var(--g),var(--g-l));color:#fff;border:none;border-radius:var(--rad);font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:all .25s;box-shadow:0 6px 18px rgba(5,150,105,.3)}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(5,150,105,.4)}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.form-policy{font-size:11px;color:var(--txt4);text-align:center;margin-top:10px;line-height:1.5}
+
+/* SUCCESS STATE */
+.booking-success{display:none;text-align:center;padding:40px 20px}
+.booking-success.show{display:block}
+.bs-icon{font-size:60px;margin-bottom:16px}
+.bs-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:900;color:var(--txt);margin-bottom:8px}
+.bs-sub{font-size:14px;color:var(--txt3);margin-bottom:24px;line-height:1.7}
+.bs-id{background:var(--g-xl);border:1px solid rgba(5,150,105,.2);border-radius:var(--rad);padding:10px 16px;font-size:13px;font-weight:700;color:var(--g);margin-bottom:24px;display:inline-block}
+.bs-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.bs-btn{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;border:1.5px solid}
+.bs-wa{background:#128C7E;color:#fff;border-color:#128C7E}
+.bs-wa:hover{background:#0e7468}
+.bs-back{background:#fff;color:var(--txt2);border-color:var(--bdr2)}
+.bs-back:hover{border-color:var(--p);color:var(--p)}
+
+/* RELATED */
+.related-section{margin-top:48px}
+.section-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:900;color:var(--txt);margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.related-card{background:#fff;border-radius:var(--rad-lg);border:1.5px solid var(--bdr);padding:0;overflow:hidden;cursor:pointer;transition:all .25s}
+.related-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);border-color:var(--p)}
+.rc-img{height:120px;background:linear-gradient(135deg,var(--bg2),var(--p-xl));display:flex;align-items:center;justify-content:center;font-size:48px;transition:transform .3s}
+.related-card:hover .rc-img{transform:scale(1.05)}
+.rc-body{padding:12px}
+.rc-cat{font-size:10px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.3px;margin-bottom:3px}
+.rc-name{font-size:12.5px;font-weight:700;color:var(--txt);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.4;margin-bottom:3px}
+.rc-brand{font-size:11px;color:var(--txt3)}
+
+/* FOOTER MINI */
+.footer-mini{background:linear-gradient(135deg,#0a2463,#0052CC);color:rgba(255,255,255,.8);padding:24px;text-align:center;margin-top:60px}
+.footer-mini-contacts{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:10px}
+.fm-item{display:flex;align-items:center;gap:6px;font-size:13px}
+.fm-item i{color:var(--gold-l)}
+.footer-mini-copy{font-size:11px;opacity:.5}
+
+/* TOAST */
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{background:#fff;border-radius:var(--rad);padding:12px 16px;box-shadow:var(--sh-lg);border-left:4px solid var(--p);font-size:13px;font-weight:500;color:var(--txt);display:flex;align-items:center;gap:8px;transform:translateX(110px);opacity:0;transition:all .3s;max-width:280px}
+.toast.show{transform:translateX(0);opacity:1}
+.toast.success{border-left-color:var(--g)}
+
+@media(max-width:860px){
+  .product-layout{grid-template-columns:1fr;gap:28px}
+  .img-panel{position:static}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .prod-highlights{grid-template-columns:1fr}
+  .prod-actions{flex-direction:column}
+  .page-wrap{padding:0 16px 48px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="site-nav">
+  <div class="nav-logo">🔌 Vijay <em>Electronics</em></div>
+  <button class="nav-back" onclick="window.close()"><i class="fas fa-arrow-left"></i> Back to Store</button>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <span class="bc-link" onclick="window.close()">Home</span>
+  <span class="bc-sep">/</span>
+  <span class="bc-link" id="bc-cat" onclick="window.close()">Category</span>
+  <span class="bc-sep">/</span>
+  <span class="bc-cur" id="bc-name">Product</span>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="page-wrap">
+  <div class="product-layout">
+
+    <!-- LEFT: IMAGE -->
+    <div class="img-panel">
+      <div class="main-img" id="main-img-wrap">
+        <span class="main-emoji" id="prod-emoji">📦</span>
+        <div class="img-badge" id="img-badge">In Stock</div>
+        <div class="img-share">
+          <div class="share-btn" onclick="shareProduct()" title="Share"><i class="fas fa-share-alt"></i></div>
+          <div class="share-btn" onclick="copyLink()" title="Copy link"><i class="fas fa-link"></i></div>
+        </div>
+      </div>
+      <div class="thumb-row" id="thumb-row"></div>
+    </div>
+
+    <!-- RIGHT: INFO -->
+    <div class="prod-info">
+      <div class="prod-breadtag">
+        <span class="prod-cat-tag" id="prod-cat-tag">Category</span>
+        <span class="prod-brand-tag" id="prod-brand-tag">Brand</span>
+      </div>
+      <h1 class="prod-name" id="prod-name">Loading…</h1>
+      <div class="prod-id" id="prod-id">Product ID: VE-000</div>
+      <div class="prod-avail">Available at all 3 Vijay Electronics stores</div>
+
+      <div class="prod-highlights">
+        <div class="ph-item"><i class="fas fa-certificate"></i> Genuine Product</div>
+        <div class="ph-item"><i class="fas fa-shield-alt"></i> Warranty Included</div>
+        <div class="ph-item"><i class="fas fa-tags"></i> Best Price</div>
+        <div class="ph-item"><i class="fas fa-headset"></i> Expert Support</div>
+      </div>
+
+      <!-- STORE PICKER -->
+      <div class="store-picker">
+        <div class="store-picker-title"><i class="fas fa-map-marker-alt"></i> Select Store</div>
+        <div class="stores-list">
+          <div class="store-opt selected" onclick="selectStore(this,'Trichy')" data-store="Trichy">
+            <div class="store-check"></div>
+            <div class="store-info"><div class="store-name">⭐ Trichy – VMC, Chathiram Bus Stand</div><div class="store-addr">No. A-17, 1st Floor · 70109 46746</div></div>
+          </div>
+          <div class="store-opt" onclick="selectStore(this,'Madurai')" data-store="Madurai">
+            <div class="store-check"></div>
+            <div class="store-info"><div class="store-name">Madurai – Townhall Road</div><div class="store-addr">No. 2, Vanian Kinatru Lane · 90258 90535</div></div>
+          </div>
+          <div class="store-opt" onclick="selectStore(this,'Othakadai')" data-store="Othakadai">
+            <div class="store-check"></div>
+            <div class="store-info"><div class="store-name">Othakadai – Valar Nagar Main Road</div><div class="store-addr">Near Meenatchi Store, Uthangudi · 73580 76300</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="prod-actions">
+        <button class="btn-book" onclick="scrollToBooking()"><i class="fas fa-calendar-check"></i> Book / Enquire</button>
+        <a class="btn-wa" id="prod-wa-link" href="#" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a class="btn-call" id="prod-call-link" href="tel:7010946746"><i class="fas fa-phone"></i> Call</a>
+      </div>
+
+      <!-- SPECS -->
+      <div class="specs-section">
+        <div class="specs-title">Specifications</div>
+        <table class="specs-table" id="specs-table">
+          <tbody id="specs-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOKING FORM -->
+  <div class="booking-section" id="booking-section">
+    <div class="booking-head">
+      <div class="bh-title"><i class="fas fa-calendar-check"></i> Book / Enquire This Product</div>
+      <div class="bh-sub">Fill the form below — we'll contact you within hours. No advance payment needed!</div>
+    </div>
+    <div class="booking-body">
+      <!-- Product Summary -->
+      <div class="prod-summary-box">
+        <div class="psb-emoji" id="form-emoji">📦</div>
+        <div class="psb-info">
+          <div class="psb-name" id="form-prod-name">Product Name</div>
+          <div class="psb-meta" id="form-prod-meta">Brand · Category</div>
+        </div>
+      </div>
+
+      <!-- BOOKING FORM -->
+      <div id="booking-form-wrap">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name <span class="req">*</span></label>
+            <input class="form-input" id="bk-name" placeholder="Your full name" autocomplete="name"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number <span class="req">*</span></label>
+            <input class="form-input" id="bk-phone" placeholder="10-digit mobile" type="tel" maxlength="10" inputmode="numeric"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Preferred Store <span class="req">*</span></label>
+            <select class="form-select" id="bk-store">
+              <option value="Trichy">⭐ Trichy – Chathiram Bus Stand</option>
+              <option value="Madurai">Madurai – Townhall Road</option>
+              <option value="Othakadai">Othakadai – Valar Nagar</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferred Time</label>
+            <select class="form-select" id="bk-time">
+              <option value="">Any time</option>
+              <option value="Morning (9AM–12PM)">Morning (9AM–12PM)</option>
+              <option value="Afternoon (12PM–4PM)">Afternoon (12PM–4PM)</option>
+              <option value="Evening (4PM–8PM)">Evening (4PM–8PM)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full">
+            <label class="form-label">Your Message / Query</label>
+            <textarea class="form-textarea" id="bk-message" placeholder="e.g. Need price, available colors, demo, home delivery options…"></textarea>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full">
+            <label class="form-label">Email (optional)</label>
+            <input class="form-input" id="bk-email" placeholder="your@email.com" type="email" autocomplete="email"/>
+            <div class="form-hint">We'll send booking confirmation to your email</div>
+          </div>
+        </div>
+        <button class="btn-submit" id="submit-btn" onclick="submitBooking()">
+          <i class="fas fa-paper-plane"></i> Submit Booking Enquiry
+        </button>
+        <div class="form-policy">🔒 Your details are safe. We'll only contact you for this enquiry.<br/>No spam. No advance payment required.</div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="booking-success" id="booking-success">
+        <div class="bs-icon">🎉</div>
+        <div class="bs-title">Booking Confirmed!</div>
+        <div class="bs-sub">Thank you! Your enquiry has been received.<br/>Our team will call you within <b>2–4 hours</b>.</div>
+        <div class="bs-id" id="bs-booking-id">Booking #BK-00000</div>
+        <div class="bs-actions">
+          <a class="bs-btn bs-wa" id="bs-wa-confirm" href="#" target="_blank"><i class="fab fa-whatsapp"></i> Also WhatsApp Us</a>
+          <button class="bs-btn bs-back" onclick="window.close()"><i class="fas fa-arrow-left"></i> Back to Store</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RELATED -->
+  <div class="related-section">
+    <div class="section-title">Related Products</div>
+    <div class="related-grid" id="related-grid"></div>
+  </div>
+</div>
+
+<!-- FOOTER MINI -->
+<footer class="footer-mini">
+  <div class="footer-mini-contacts">
+    <div class="fm-item"><i class="fas fa-map-marker-alt"></i> Trichy · Madurai · Othakadai</div>
+    <div class="fm-item"><i class="fas fa-phone"></i> <a href="tel:7010946746" style="color:inherit">70109 46746</a></div>
+    <div class="fm-item"><i class="fab fa-whatsapp" style="color:#25d366"></i> <a href="https://wa.me/917010946746" target="_blank" style="color:inherit">WhatsApp</a></div>
+  </div>
+  <div class="footer-mini-copy">© 2025 Vijay Electronics. All rights reserved.</div>
+</footer>
+
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+const CAT_ICONS={
+  'SoundBar':'🔊','Stabilizers':'⚡','Television':'📺','Tower Speaker - Single':'🔉',
+  'Tower Speaker - Double':'🔈','5.1 Amplifier':'🎛️','CD300 Amplifiers':'🎛️','Big Amp':'🎛️',
+  'Ceiling Fan':'💨','Tower Fan':'💨','2.1 Home Theatre':'🎬','5.1 Home Theatre':'🎬',
+  'Trolley Speaker':'🎵','Speaker Box':'📦','BT Speaker':'📻','Torch Flash Light':'🔦',
+  'Induction Stove':'🍳','Washing Machine':'🫧','Woofers':'🎶','Transistor Amp':'🎛️',
+  'Mosfet Amplifier':'🎛️','Bass Tube':'🎵','Sub Woofer':'🔊','Sub Woofer Head':'🔊',
+  'Radio / FM':'📻','Car Amplifiers':'🚗','Car USB':'🚗','Door Speaker':'🚪',
+  'Double TIN':'📱','Oval Speaker':'🔉','Reverse Camera':'📷','Tweeter':'🎵',
+  'Wire Kit / Speaker Wire':'🔌','2.1 Amplifier':'🎛️','20w Amplifiers':'🎛️',
+  'Power Amplifiers':'⚡','Pre Amp':'🎛️','Speaker Head':'🔊','STK Amplifiers':'🎛️','Woofer Head':'🔊'
+};
+const STORE_PHONES={Trichy:'7010946746',Madurai:'9025890535',Othakadai:'7358076300'};
+
+const SB_URL='https://qnnpstllnovhfmbjkyor.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFubnBzdGxsbm92aGZtYmpreW9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NzM0NDQsImV4cCI6MjA4OTI0OTQ0NH0.JwsgYQigDr1vN57q2uYKkOoQpDOej4JD3MjHWaFxacg';
+const sb=supabase.createClient(SB_URL,SB_KEY);
+
+let product = null;
+let selectedStore = 'Trichy';
+let allProducts = [];
+
+// ─── INIT ───
+window.addEventListener('load', () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const name = params.get('name');
+  const brand = params.get('brand');
+  const category = params.get('category');
+
+  allProducts = getStoredProducts();
+
+  if (name && brand && category) {
+    // Find from stored or construct from URL params
+    product = allProducts.find(p => String(p.id) === String(id)) || {
+      id: id||Date.now(), name: decodeURIComponent(name||''), brand: decodeURIComponent(brand||''),
+      category: decodeURIComponent(category||''), icon: CAT_ICONS[decodeURIComponent(category||'')]||'📦'
+    };
+  } else if (id) {
+    product = allProducts.find(p => String(p.id) === String(id));
+  }
+
+  if (!product) {
+    document.querySelector('.page-wrap').innerHTML = '<div style="text-align:center;padding:80px 20px"><div style="font-size:48px;margin-bottom:16px">😕</div><h2>Product not found</h2><button onclick="window.close()" style="margin-top:16px;padding:10px 24px;background:var(--p);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer">← Back</button></div>';
+    return;
+  }
+
+  renderProduct();
+  renderRelated();
+  updateWaLink();
+});
+
+function getStoredProducts() {
+  try { return JSON.parse(localStorage.getItem('ve_products'))||[]; } catch { return []; }
+}
+
+function renderProduct() {
+  document.title = `${product.name} – Vijay Electronics`;
+  const icon = CAT_ICONS[product.category]||'📦';
+  const hasImg = !!product.image_url;
+
+  // Main image area — show real image or emoji
+  const mainWrap = document.getElementById('main-img-wrap');
+  const emojiEl = document.getElementById('prod-emoji');
+  if (hasImg) {
+    emojiEl.style.display = 'none';
+    // Insert image before badge
+    const img = document.createElement('img');
+    img.src = product.image_url;
+    img.alt = product.name;
+    img.id = 'prod-main-img';
+    img.style.cssText = 'width:100%;height:100%;object-fit:contain;padding:20px';
+    img.onerror = function() {
+      this.remove();
+      emojiEl.style.display = '';
+    };
+    mainWrap.insertBefore(img, mainWrap.firstChild);
+  }
+
+  document.getElementById('form-emoji').textContent = icon;
+  document.getElementById('prod-name').textContent = product.name;
+  document.getElementById('prod-id').textContent = `Product ID: VE-${String(product.id).slice(-5)}`;
+  document.getElementById('prod-cat-tag').innerHTML = `${icon} ${product.category}`;
+  document.getElementById('prod-brand-tag').innerHTML = `<i class="fas fa-tag" style="color:var(--txt4);font-size:10px"></i> ${product.brand}`;
+  document.getElementById('bc-cat').textContent = product.category;
+  document.getElementById('bc-name').textContent = product.name;
+  document.getElementById('form-prod-name').textContent = product.name;
+  document.getElementById('form-prod-meta').textContent = `${product.brand} · ${product.category}`;
+  if (product.price) document.getElementById('img-badge').textContent = `₹${Number(product.price).toLocaleString('en-IN')}`;
+
+  // Thumbnails — show image thumb if available, else emoji
+  const thumbs = hasImg
+    ? [
+        {type:'img', src:product.image_url, label:'Main'},
+        {type:'emoji', val:icon, label:'Icon'},
+        {type:'emoji', val:'📦', label:'Box'},
+      ]
+    : [
+        {type:'emoji', val:icon, label:'Icon'},
+        {type:'emoji', val:'🔍', label:'Detail'},
+        {type:'emoji', val:'📦', label:'Box'},
+      ];
+
+  document.getElementById('thumb-row').innerHTML = thumbs.map((t,i)=>`
+    <div class="thumb ${i===0?'active':''}" onclick="setThumb(this,'${t.type}','${t.type==='img'?t.src:t.val}')">
+      ${t.type==='img'
+        ? `<img src="${t.src}" style="width:100%;height:100%;object-fit:contain;padding:4px" onerror="this.parentElement.textContent='${icon}'">`
+        : t.val}
+    </div>
+  `).join('');
+
+  // Specs
+  const specs = [
+    ['Product Name', product.name],
+    ['Brand', product.brand],
+    ['Category', product.category],
+    ['Product ID', 'VE-'+String(product.id).slice(-5)],
+    ...(product.price ? [['Price', '₹'+Number(product.price).toLocaleString('en-IN')]] : []),
+    ['Availability', product.in_stock===false ? '<span style="color:var(--a);font-weight:700">Out of Stock</span>' : '<span style="color:var(--g);font-weight:700">✅ In Stock</span>'],
+    ['Warranty', 'Manufacturer Warranty'],
+    ['Store Pickup', 'Trichy / Madurai / Othakadai'],
+    ...(product.description ? [['Description', product.description]] : []),
+  ];
+  document.getElementById('specs-body').innerHTML = specs.map(([k,v])=>`
+    <tr><td>${k}</td><td>${v}</td></tr>
+  `).join('');
+}
+
+function setThumb(el, type, val) {
+  document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const emojiEl = document.getElementById('prod-emoji');
+  const imgEl = document.getElementById('prod-main-img');
+  if (type === 'img') {
+    if (imgEl) { imgEl.src = val; imgEl.style.display = ''; }
+    emojiEl.style.display = 'none';
+  } else {
+    if (imgEl) imgEl.style.display = 'none';
+    emojiEl.style.display = '';
+    emojiEl.textContent = val;
+  }
+}
+
+function selectStore(el, store) {
+  document.querySelectorAll('.store-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedStore = store;
+  document.getElementById('bk-store').value = store;
+  updateWaLink();
+  const phone = STORE_PHONES[store]||'7010946746';
+  document.getElementById('prod-call-link').href = `tel:${phone}`;
+}
+
+function updateWaLink() {
+  if (!product) return;
+  const waText = encodeURIComponent(`Hi! I want to enquire about: *${product.name}* (${product.brand} - ${product.category}). Please share price and details. Preferred store: ${selectedStore}`);
+  const phone = STORE_PHONES[selectedStore]||'7010946746';
+  document.getElementById('prod-wa-link').href = `https://wa.me/91${phone}?text=${waText}`;
+}
+
+function scrollToBooking() {
+  document.getElementById('booking-section').scrollIntoView({behavior:'smooth',block:'start'});
+  setTimeout(()=>document.getElementById('bk-name').focus(),600);
+}
+
+// ─── BOOKING SUBMIT ───
+async function submitBooking() {
+  const name = document.getElementById('bk-name').value.trim();
+  const phone = document.getElementById('bk-phone').value.trim();
+  const store = document.getElementById('bk-store').value;
+  const time = document.getElementById('bk-time').value;
+  const message = document.getElementById('bk-message').value.trim();
+  const email = document.getElementById('bk-email').value.trim();
+
+  if (!name) { showToast('Please enter your name','error'); document.getElementById('bk-name').focus(); return; }
+  if (!phone || !/^\d{10}$/.test(phone)) { showToast('Enter a valid 10-digit phone number','error'); document.getElementById('bk-phone').focus(); return; }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting…';
+
+  const orderData = {
+    customer_name: name,
+    phone,
+    email: email||'',
+    store_location: store,
+    preferred_time: time||'',
+    message: message||'',
+    product_id: product?.id||null,
+    product_name: product?.name||'',
+    brand: product?.brand||'',
+    category: product?.category||'',
+    quantity: 1,
+    status: 'new'
+  };
+
+  // Save to Supabase orders table
+  let savedId = Date.now();
+  try {
+    const { data, error } = await sb.from('orders').insert(orderData).select().single();
+    if (!error && data) savedId = data.id;
+  } catch {}
+
+  // Also save to localStorage as backup
+  try {
+    const existing = JSON.parse(localStorage.getItem('ve_orders')||'[]');
+    existing.push({...orderData, id: savedId, created_at: new Date().toISOString()});
+    localStorage.setItem('ve_orders', JSON.stringify(existing));
+  } catch {}
+
+  // Show success
+  document.getElementById('booking-form-wrap').style.display='none';
+  const succ = document.getElementById('booking-success');
+  succ.classList.add('show');
+  document.getElementById('bs-booking-id').textContent = `Order #ORD-${String(savedId).slice(-5)}`;
+
+  const waText = encodeURIComponent(`Hi! I just placed an order on your website:\n*Product:* ${product?.name} (${product?.brand})\n*Store:* ${store}\n*Name:* ${name}\n*Phone:* ${phone}\n${message?'*Message:* '+message+'\n':''}\n*Order ID:* ORD-${String(savedId).slice(-5)}`);
+  const storePhone = STORE_PHONES[store]||'7010946746';
+  document.getElementById('bs-wa-confirm').href = `https://wa.me/91${storePhone}?text=${waText}`;
+
+  showToast('🎉 Order placed successfully!','success');
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Booking Enquiry';
+}
+
+// ─── RELATED ───
+function renderRelated() {
+  if (!product || !allProducts.length) return;
+  const related = allProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 8);
+  document.getElementById('related-grid').innerHTML = related.map(p => `
+    <div class="related-card" onclick="openRelated(${JSON.stringify(p).replace(/"/g,'&quot;')})">
+      <div class="rc-img">
+        ${p.image_url
+          ? `<img src="${p.image_url}" alt="${p.name}" style="width:100%;height:100%;object-fit:contain;padding:8px" loading="lazy" onerror="this.outerHTML='${p.icon||'📦'}'"/>`
+          : (p.icon||'📦')}
+      </div>
+      <div class="rc-body">
+        <div class="rc-cat">${p.category}</div>
+        <div class="rc-name">${p.name}</div>
+        <div class="rc-brand">${p.brand}</div>
+      </div>
+    </div>
+  `).join('') || '<p style="color:var(--txt3);font-size:13px;grid-column:1/-1">No related products found</p>';
+}
+
+function openRelated(p) {
+  const url = `product.html?id=${p.id}&name=${encodeURIComponent(p.name)}&brand=${encodeURIComponent(p.brand)}&category=${encodeURIComponent(p.category)}`;
+  window.location.href = url;
+}
+
+// ─── SHARE ───
+function shareProduct() {
+  if (navigator.share) {
+    navigator.share({title: product?.name, text: `Check out ${product?.name} at Vijay Electronics!`, url: window.location.href});
+  } else { copyLink(); }
+}
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(()=>showToast('Link copied!','success'));
+}
+
+// ─── TOAST ───
+function showToast(msg,type='info'){
+  const w=document.getElementById('toast-wrap');
+  const t=document.createElement('div');
+  t.className=`toast ${type}`;
+  const col=type==='success'?'var(--g)':type==='error'?'var(--a)':'var(--p)';
+  const ic=type==='success'?'check-circle':type==='error'?'exclamation-circle':'info-circle';
+  t.innerHTML=`<i class="fas fa-${ic}" style="color:${col}"></i> ${msg}`;
+  w.appendChild(t);
+  requestAnimationFrame(()=>{requestAnimationFrame(()=>t.classList.add('show'));});
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),400);},3500);
+}
+</script>
+</body>
+</html>
