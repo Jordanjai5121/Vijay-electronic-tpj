@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -664,7 +664,7 @@ footer{background:linear-gradient(135deg,#0a1628,#0a2463);color:rgba(255,255,255
 // ─── SUPABASE CONFIG ───
 const SB_URL = 'https://qnnpstllnovhfmbjkyor.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFubnBzdGxsbm92aGZtYmpreW9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NzM0NDQsImV4cCI6MjA4OTI0OTQ0NH0.JwsgYQigDr1vN57q2uYKkOoQpDOej4JD3MjHWaFxacg';
-const sb = supabase.createClient(SB_URL, SB_KEY);
+const sb = (window.supabase || supabase).createClient(SB_URL, SB_KEY);
 
 const CAT_ICONS={'SoundBar':'🔊','Stabilizers':'⚡','Television':'📺','Tower Speaker - Single':'🔉','Tower Speaker - Double':'🔈','5.1 Amplifier':'🎛️','CD300 Amplifiers':'🎛️','Big Amp':'🎛️','Ceiling Fan':'💨','Tower Fan':'💨','2.1 Home Theatre':'🎬','5.1 Home Theatre':'🎬','Trolley Speaker':'🎵','Speaker Box':'📦','BT Speaker':'📻','Torch Flash Light':'🔦','Induction Stove':'🍳','Washing Machine':'🫧','Woofers':'🎶','Transistor Amp':'🎛️','Mosfet Amplifier':'🎛️','Bass Tube':'🎵','Sub Woofer':'🔊','Sub Woofer Head':'🔊','Radio / FM':'📻','Car Amplifiers':'🚗','Car USB':'🚗','Door Speaker':'🚪','Double TIN':'📱','Oval Speaker':'🔉','Reverse Camera':'📷','Tweeter':'🎵','Wire Kit / Speaker Wire':'🔌','2.1 Amplifier':'🎛️','20w Amplifiers':'🎛️','Power Amplifiers':'⚡','Pre Amp':'🎛️','Speaker Head':'🔊','STK Amplifiers':'🎛️','Woofer Head':'🔊'};
 const STORE_PHONES={Trichy:'7010946746',Madurai:'9025890535',Othakadai:'7358076300'};
@@ -673,7 +673,7 @@ const TOP_CATS=['Television','SoundBar','5.1 Home Theatre','Trolley Speaker','St
 let ALL_PRODUCTS=[], filteredProds=[], categories=[], brands=[], displayCount=24;
 let activeCategory='all', activeBrand='', activeSort='', searchQuery='';
 let chatMode='search', chatOpen=false;
-let chatOpen=false;
+
 
 // ─── INIT ───
 document.addEventListener('DOMContentLoaded',async()=>{
@@ -696,27 +696,36 @@ document.addEventListener('DOMContentLoaded',async()=>{
 
 // ─── SUPABASE: LOAD PRODUCTS ───
 async function loadProducts(){
+  const subEl = document.getElementById('products-sub');
+  if(subEl) subEl.textContent = 'Connecting to database…';
   try{
     const{data,error}=await sb.from('products').select('*').order('category').order('name');
-    if(error||!data||!data.length){
-      // Fallback: try localStorage (seeded from admin or previous session)
-      const local=JSON.parse(localStorage.getItem('ve_products')||'[]');
-      if(local.length){ALL_PRODUCTS=local.map(p=>({...p,icon:CAT_ICONS[p.category]||'📦'}));}
-      else{showToast('Using cached data – connect to Supabase for live products','error');ALL_PRODUCTS=[];}
-    } else {
+    if(error) throw error;
+    if(data && data.length){
       ALL_PRODUCTS=data.map(p=>({...p,icon:CAT_ICONS[p.category]||'📦'}));
       localStorage.setItem('ve_products',JSON.stringify(ALL_PRODUCTS));
+      showToast('✅ '+ALL_PRODUCTS.length+' products loaded','success');
+    } else {
+      // Table empty — try localStorage
+      const local=JSON.parse(localStorage.getItem('ve_products')||'[]');
+      ALL_PRODUCTS=local.map(p=>({...p,icon:CAT_ICONS[p.category]||'📦'}));
+      if(!ALL_PRODUCTS.length) showToast('No products yet — add via Admin panel','info');
     }
   }catch(e){
+    console.error('Supabase loadProducts error:',e.message);
+    // Fallback localStorage
     const local=JSON.parse(localStorage.getItem('ve_products')||'[]');
     ALL_PRODUCTS=local.map(p=>({...p,icon:CAT_ICONS[p.category]||'📦'}));
+    showToast('DB error: '+e.message,'error');
   }
   categories=[...new Set(ALL_PRODUCTS.map(p=>p.category))].sort();
   brands=[...new Set(ALL_PRODUCTS.map(p=>p.brand))].sort();
   filteredProds=[...ALL_PRODUCTS];
   document.getElementById('stat-products').textContent=ALL_PRODUCTS.length+'+';
   document.getElementById('stat-cats').textContent=categories.length+'+';
-  document.getElementById('products-sub').textContent=`Browse ${ALL_PRODUCTS.length} premium electronics products across ${categories.length} categories`;
+  if(subEl) subEl.textContent=ALL_PRODUCTS.length
+    ? `Browse ${ALL_PRODUCTS.length} products across ${categories.length} categories`
+    : 'No products yet — visit Admin panel to add products';
 }
 
 // ─── SUPABASE: LOAD OFFERS ───

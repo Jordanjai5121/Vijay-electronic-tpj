@@ -6,7 +6,7 @@
 <title>Admin Panel – Vijay Electronics</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -426,7 +426,7 @@ td{padding:10px 13px;color:var(--txt2);vertical-align:middle}
 <script>
 const SB_URL='https://qnnpstllnovhfmbjkyor.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFubnBzdGxsbm92aGZtYmpreW9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NzM0NDQsImV4cCI6MjA4OTI0OTQ0NH0.JwsgYQigDr1vN57q2uYKkOoQpDOej4JD3MjHWaFxacg';
-const sb=supabase.createClient(SB_URL,SB_KEY);
+const sb=(window.supabase||supabase).createClient(SB_URL,SB_KEY);
 const CREDS={admin:'vijay@2025'};
 const CAT_ICONS={'SoundBar':'🔊','Stabilizers':'⚡','Television':'📺','Tower Speaker - Single':'🔉','Tower Speaker - Double':'🔈','5.1 Amplifier':'🎛️','CD300 Amplifiers':'🎛️','Big Amp':'🎛️','Ceiling Fan':'💨','Tower Fan':'💨','2.1 Home Theatre':'🎬','5.1 Home Theatre':'🎬','Trolley Speaker':'🎵','Speaker Box':'📦','BT Speaker':'📻','Torch Flash Light':'🔦','Induction Stove':'🍳','Washing Machine':'🫧','Woofers':'🎶','Transistor Amp':'🎛️','Mosfet Amplifier':'🎛️','Bass Tube':'🎵','Sub Woofer':'🔊','Sub Woofer Head':'🔊','Radio / FM':'📻','Car Amplifiers':'🚗','Car USB':'🚗','Door Speaker':'🚪','Double TIN':'📱','Oval Speaker':'🔉','Reverse Camera':'📷','Tweeter':'🎵','Wire Kit / Speaker Wire':'🔌','2.1 Amplifier':'🎛️','20w Amplifiers':'🎛️','Power Amplifiers':'⚡','Pre Amp':'🎛️','Speaker Head':'🔊','STK Amplifiers':'🎛️','Woofer Head':'🔊'};
 let PRODUCTS=[],ORDERS=[],OFFERS=[],editId=null,offerEditId=null,selCP=[],tblPage=1,PSZ=20;
@@ -435,7 +435,7 @@ let PRODUCTS=[],ORDERS=[],OFFERS=[],editId=null,offerEditId=null,selCP=[],tblPag
 function doLogin(){
   const u=document.getElementById('lu').value.trim(),p=document.getElementById('lp').value,err=document.getElementById('lerr');
   if(CREDS[u]&&CREDS[u]===p){sessionStorage.setItem('ve_admin','1');document.getElementById('ls').style.display='none';document.getElementById('app').classList.add('vis');initApp();}
-  else{err.querySelector('#lerr-msg').textContent='Invalid username or password';err.classList.add('show');setTimeout(()=>err.classList.remove('show'),3000);}
+  else{document.getElementById('lerr-msg').textContent='Wrong username or password';err.classList.add('show');setTimeout(()=>err.classList.remove('show'),3000);}
 }
 function togglePw(){const i=document.getElementById('lp'),ic=document.getElementById('pwtog');const s=i.type==='password';i.type=s?'text':'password';ic.className=s?'fas fa-eye-slash lfi':'fas fa-eye lfi';}
 function doLogout(){sessionStorage.removeItem('ve_admin');document.getElementById('app').classList.remove('vis');document.getElementById('ls').style.display='flex';}
